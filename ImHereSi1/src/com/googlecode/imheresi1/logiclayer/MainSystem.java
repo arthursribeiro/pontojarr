@@ -604,17 +604,23 @@ public class MainSystem {
 	 * Method to initiate a Chat between two users
 	 * @param u1 - string representing a user in the Chat
 	 * @param u2 - string representing the other user in the Chat
+	 * @throws MainSystemException 
 	 */
-	public void initChat(String u1, String u2) {
+	public void initChat(String u1, String u2) throws MainSystemException {
+		try {
+			User u = getUserByUserName(u1);
+			u = getCreatedUserByUserName(u2);
+			u = null;
+		} catch (MainSystemException e) {
+			throw new MainSystemException("Usuario não existe.");
+		}
 		chat = new Chat(u1, u2);
 	}
 
 	/**
-	 * Method to end a chat
-	 * @throws MessageControllerException if the chat log could not be saved in the System 
+	 * Method to end a chat 
 	 */
-	public void endChat() throws MessageException {
-		chat.sendMessage();
+	public void endChat() {
 		chat = null;
 	}
 
@@ -623,11 +629,12 @@ public class MainSystem {
 	 * @param receiver - string representing the user who received the message
 	 * @param msg - string representing the user who sent the message
 	 * @throws MainSystemException if the chat was not initiated
+	 * @throws MessageException 
 	 */
-	public void sendChat(String receiver, String msg) throws MainSystemException  {
+	public void sendChat(String receiver, String msg) throws MainSystemException, MessageException  {
 		if (chat == null)
 			throw new MainSystemException("Chat nao foi iniciado.");
-		chat.addMsg(receiver, msg);
+		chat.sendMsg(receiver, msg);
 	}
 
 	/**
