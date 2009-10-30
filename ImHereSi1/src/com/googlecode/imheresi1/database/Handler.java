@@ -8,13 +8,23 @@ import com.googlecode.imheresi1.logiclayer.User;
 
 public class Handler {
 
-	private PersistenceManager bd;
-	private static Handler handler = null;
+	private PersistenceManager bd; /*Object the holds the properly actions with files depending on type */
+	private static Handler handler = null; /* Instance used in singleton */
 	
+	/**
+	 * Private constructor for database handler
+	 * @param bd - Manage the properly file actions, depending on type.
+	 */
 	private Handler(PersistenceManager bd) {
 	    this.bd = bd;
 	}
 	
+	/**
+	 * Singleton method that guarantees a single instace of database Handler 
+	 * and create the files folder, if i doesn't exist.
+	 * @param bd
+	 * @return Handler instance.
+	 */
 	public static Handler getInstance(PersistenceManager bd) {
 		if (handler == null) {
 			checkDir("files");
@@ -27,45 +37,25 @@ public class Handler {
 		return handler;
 	}
 	
+	/**
+	 * Check if the path director exists, and creates it if it doesn't exist.
+	 * @param path
+	 */
 	private static void checkDir(String path) {
 		File file = new File(path);
 		if(!file.exists())
 			file.mkdir();
 	}
 	
-	private void clearUsers() {
-		File file = new File("files/users");
+	/**
+	 * Clear the directory files/path
+	 * @param path - path in the file directory
+	 */
+	private void clearDirectory(String path) {
+		File file = new File("files/" + path);
 
 		for (String i : file.list()) {
-			File del = new File("files/users/" + i);
-			del.delete();
-		}
-	}
-	
-	private void clearChats() {
-		File file = new File("files/chats");
-		
-		for(String i : file.list()) {
-			File del = new File("files/chats/" + i);
-			del.delete();
-		}
-		
-	}
-	
-	private void clearInvitation() {
-        File file = new File("files/invitation");
-		
-		for(String i : file.list()) {
-			File del = new File("files/invitation/" + i);
-			del.delete();
-		}
-	}
-	
-	private void clearOutputs() {
-        File file = new File("files/outputs");
-		
-		for(String i : file.list()) {
-			File del = new File("files/outputs/" + i);
+			File del = new File("files/" + path + "/" + i);
 			del.delete();
 		}
 	}
@@ -74,40 +64,64 @@ public class Handler {
 	 * Method that deletes all the files in the System's database
 	 */
 	public void resetBD() {
-		clearUsers();
-		clearChats();
-		clearInvitation();
-		clearOutputs();
+		clearDirectory("users");
+		clearDirectory("invitation");
+		clearDirectory("outputs");
+		clearDirectory("chats");
 	}
 	
+	/**
+	 * @see PersistenceManager#hasUser(String)
+	 */
 	public boolean hasUser(String user) {
 		return bd.hasUser(user);
 	}
 	
+	/**
+	 * @see PersistenceManager#getUserByName(String, int)
+	 */
 	public User getUserByName(String name, int occurrence) {
 		return bd.getUserByName(name, occurrence);
 	}
 	
+	/**
+	 * @see PersistenceManager#getUserByUserName(String)
+	 */
 	public User getUserByUserName(String userName) {
 		return bd.getUserByUserName(userName);
 	}
 	
+	/**
+	 * @see PersistenceManager#saveUser(User, String)
+	 */
 	public void saveUser(User user, String userName) {
 		bd.saveUser(user, userName);
 	}
 	
+	/**
+	 * @see PersistenceManager#removeUser(String)
+	 */
 	public void removeUser(String userName) throws PersistenceManagerException {
 		bd.removeUser(userName);
 	}
 	
+	/**
+	 * @see PersistenceManager#clearInvitations()
+	 */
 	public void clearInvitations() {
 		bd.clearInvitations();
 	}
 	
+	/**
+	 * @see PersistenceManager#getInvitations()
+	 */
 	public Map<String, List<String>> getInvitations() {
 		return bd.getInvitations();
 	}
 	
+	/**
+	 * @see PersistenceManager#saveInvitations(Map)
+	 */
 	public void saveInvitations(Map<String, List<String>> invitations) {
 		bd.saveInvitations(invitations);
 	}
