@@ -1,0 +1,4 @@
+<nomeUsuario> (<emailUsuario>) gostaria de compartilhar sua localização com você usando o I'mHere. Você também pode fazer o mesmo com os seus amigos, para mais informações acesse http://iamhere.com.
+Para aceitar ou recusar, clique no link abaixo. 
+
+http://iamhere.com/compartilhar

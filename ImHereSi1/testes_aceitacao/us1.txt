@@ -1,0 +1,118 @@
+#####################################################################################
+# User Story de Manutenção de conta (cadastro de usuario)
+#####################################################################################
+
+# Teste para verificar se o cadastro com todos os campos
+# está ocorrendo de maneira correta
+
+# zera o sistema e todos os cadastrados no mesmo
+zerarSistema
+
+criarUsuario userName="fulano" nome="Fulano de Tal" email="fulano@email.com" \
+senha="123456" telefone="558322222222"
+
+criarUsuario userName="beltrana" nome="Beltrana da Silva" email="beltrana@email.com" \
+senha="654321" telefone="558399999999"
+
+criarUsuario userName="sicrano" nome="Sicrano Souza" email="sicrano@email.com" \
+senha="645ju2" telefone="558333333333"
+
+# primeiro usuario
+id1=getUsuarioPorNome nome=Fulano indice=1
+expect "Fulano de Tal" getAtributoUsuario id=${id1} atributo=nome
+expect "fulano@email.com" getAtributoUsuario id=${id1} atributo=email
+expect "fulano" getAtributoUsuario id=${id1} atributo=userName
+expect "558322222222" getAtributoUsuario id=${id1} atributo=telefone
+
+
+# segundo usuario
+id2=getUsuarioPorNome nome=Beltrana indice=1
+expect "Beltrana da Silva" getAtributoUsuario id=${id2} atributo=nome
+expect "beltrana@email.com" getAtributoUsuario id=${id2} atributo=email
+expect "beltrana" getAtributoUsuario id=${id2} atributo=userName
+expect "558399999999" getAtributoUsuario id=${id2} atributo=telefone
+
+# terceiro usuario
+id3=getUsuarioPorNome nome=Sicrano indice=1
+expect "Sicrano Souza" getAtributoUsuario id=${id3} atributo=nome
+expect "sicrano@email.com" getAtributoUsuario id=${id3} atributo=email
+expect "sicrano" getAtributoUsuario id=${id3} atributo=userName
+expect "558333333333" getAtributoUsuario id=${id3} atributo=telefone
+
+#####################################################################################
+# erros de cadastro                                                       
+#####################################################################################
+
+# falta de campos obrigatorios
+
+expectError "Username eh um dado obrigatorio." criarUsuario userName= \
+nome="Jurema Santos" email="jurema@email.com" senha="8797n75" telefone="558399999999"
+
+expectError "Nome eh um dado obrigatorio." criarUsuario userName="jurema" \
+nome= email="jurema@email.com" senha="8797n75" telefone="558399999999"
+
+expectError "E-mail eh um dado obrigatorio." criarUsuario userName="jurema" \
+nome="Jurema Santos" email= senha="8797n75" telefone="558399999999"
+
+expectError "Senha eh um dado obrigatorio." criarUsuario userName="jurema" \
+nome="Jurema Santos" email="jurema@email.com" senha= telefone="558399999999"
+
+expectError "E-mail invalido." criarUsuario userName="jurema" \
+nome="Jurema Santos" email="juremaemail.com" senha="8797n75" telefone="558399999999"
+
+# userName existente
+
+expectError "O username jah existe." criarUsuario userName="beltrana" \
+nome="Jurema Santos" email="jurema@email.com" senha="8797n75" telefone="558399999999"
+
+# senha com menos de 6 caracteres
+
+expectError "Senha deve ter no minimo 6 caracteres." criarUsuario userName="jurema" \
+nome="Jurema Santos" email="jurema@email.com" senha="8n75" telefone="558399999999"
+
+expectError "O usuario nao existe." getUsuarioPorNome nome=Jurema indice=1
+
+#####################################################################################
+# atualizacao de usuario
+#####################################################################################
+atualizarUsuario id=${id1} atributo=nome valor="Fulano Pereira"
+atualizarUsuario id=${id1} atributo=email valor="fulanop@email.com"
+atualizarUsuario id=${id1} atributo=senha valor="8huoeew89"
+atualizarUsuario id=${id1} atributo=telefone valor="558333332222"
+
+# usuario alterado
+id1=getUsuarioPorNome nome=Fulano indice=1
+expect "Fulano Pereira" getAtributoUsuario id=${id1} atributo=nome
+expect "fulanop@email.com" getAtributoUsuario id=${id1} atributo=email
+expect "558333332222" getAtributoUsuario id=${id1} atributo=telefone
+
+# erros possiveis
+expectError "Nao eh permitido alterar o username." atualizarUsuario id=${id1} \
+atributo=userName valor="fulanop"
+expectError "O usuario nao existe." atualizarUsuario id=id00 atributo=email \
+valor="clementino@email.com"
+
+expectError "Nome eh um dado obrigatorio." atualizarUsuario id=${id1} \
+atributo=nome valor=
+expectError "Senha deve ter no minimo 6 caracteres." atualizarUsuario id=${id1} \
+atributo=senha valor="354"
+expectError "Senha deve ter no minimo 6 caracteres." atualizarUsuario id=${id1} \
+atributo=senha valor=
+
+id1=getUsuarioPorNome nome=Fulano indice=1
+expect "Fulano Pereira" getAtributoUsuario id=${id1} atributo=nome
+expect "fulanop@email.com" getAtributoUsuario id=${id1} atributo=email
+expect "558333332222" getAtributoUsuario id=${id1} atributo=telefone
+
+#####################################################################################
+# remocao de usuario
+#####################################################################################
+expect "Sicrano Souza" getAtributoUsuario id=${id3} atributo=nome
+removerUsuario id=${id3}
+expectError "O usuario nao existe." getAtributoUsuario id=${id3} atributo=nome
+expectError "O usuario nao existe." removerUsuario id=${id3}
+
+# grava o cadastro em arquivo e encerra o programa. Atingir o final de um script (final de arquivo) é equivalente a encontrar este comando.
+encerrarSistema
+
+

@@ -1,0 +1,46 @@
+#####################################################################################
+# User Story de Cadastramento de localizacao
+#####################################################################################
+
+zerarSistema
+
+id1=cadastrarUsuario userName="fulano" nome="Fulano de Tal" email="fulano@email.com" \
+senha="123456" telefone="558322222222" ip="127.0.0.1"
+
+id2=cadastrarUsuario userName="beltrana" nome="Beltrana da Silva" email="beltrana@email.com" \
+senha="654321" telefone="558399999999" ip="127.0.0.1"
+
+#####################################################################################
+# obter localizacao
+# como 127.0.0.1 eh um IP privado nao sera possivel encontrar a localizacao
+#####################################################################################
+
+expect "[GeoIP, Manual]" getLocalizadores
+
+expectError "Nao foi possivel obter a localizacao." obterLocalizacao usuario=${id1}
+
+expectError "Nao foi possivel obter a localizacao." obterLocalizacao usuario=${id2}
+
+
+# informa manualmente a localizacao
+
+setLocalizacao usuario=${id1} latitude=-7.2215414294 longitude=-35.8892995509
+
+setLocalizacao usuario=${id2} latitude=-7.124546 longitude=-34.867554
+
+expect "Lat: -7.2215414294, Long: -35.8892995509" getLocalizacao usuario=${id1}
+
+expect "Lat: -7.124546, Long: -34.867554" getLocalizacao usuario=${id2}
+
+#erros
+
+expectError "Latitude/Longitude invalidos." setLocalizacao usuario=${id2} \
+latitude=134.124546 longitude=187.867554
+
+expectError "O usuario nao existe." setLocalizacao usuario=id657 \
+latitude=-7.124546 longitude=-34.867554
+
+logout id=${id1}
+
+logout id=${id2}
+

@@ -1,0 +1,75 @@
+#####################################################################################
+# User Story de Autenticacao de usuario
+#####################################################################################
+
+zerarSistema
+
+criarUsuario userName="fulano" nome="Fulano de Tal" email="fulano@email.com" \
+senha="123456" telefone="558322222222"
+
+criarUsuario userName="beltrana" nome="Beltrana da Silva" email="beltrana@email.com" \
+senha="654321" telefone="558399999999"
+
+criarUsuario userName="sicrano" nome="Sicrano Souza" email="sicrano@email.com" \
+senha="645ju2" telefone="558333333333"
+
+#####################################################################################
+# login
+#####################################################################################
+
+id1=login userName="fulano" senha="123456" ip="127.0.0.1"
+
+id2=login userName="beltrana" senha="654321" ip="127.0.0.1"
+
+id3=login userName="fulano" senha="123456" ip="127.0.0.1"
+
+expect ${id1} echo ${id3}
+
+expect true estaConectado usuario=${id2}
+
+expect true estaConectado usuario=${id3}
+
+expect false estaConectado usuario=id45
+
+# erros
+
+expectError "Login/senha invalidos." login userName="fulano" senha="lkvoi455" \
+ip="127.0.0.1"
+
+expectError "Login/senha invalidos." login userName="beltranads" senha="654321" \
+ip="127.0.0.1"
+
+expectError "Login/senha invalidos." login userName="sicrano" senha= \
+ip="127.0.0.1"
+
+expectError "IP invalido." login userName="sicrano" senha="654321" \
+ip="127.00.1"
+
+
+#####################################################################################
+# logout
+#####################################################################################
+
+logout id=${id2}
+
+logout id=${id3}
+
+# erro logout
+
+expectError "Sessao inexistente." logout id=id876
+
+expectError "Sessao inexistente." logout id=${id1}
+
+expectError "Sessao inexistente." logout id=${id2}
+
+#####################################################################################
+# cadastrarUsuário devera retornar o id de autenticacao do
+# usuario. Ou seja, quando o usuario se cadastrar ele podera, logo em seguida, utilizar
+# o sistema sem haver a necessidade de fazer login, pois ja esta autenticado.
+#####################################################################################
+
+id4=cadastrarUsuario userName="clementino" nome="Clementino Pereira" email="clementino@email.com" \
+senha="97887huy" telefone="558366666666" ip="127.0.0.1"
+logout id=${id4}
+
+zerarSistema

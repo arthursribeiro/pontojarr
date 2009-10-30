@@ -1,0 +1,28 @@
+#####################################################################################
+# User Story de Envio de SMS para amigos
+#####################################################################################
+
+id1=login userName="fulano" senha="123456" ip="127.0.0.1" 
+
+id2=login userName="beltrana" senha="654321" ip="127.0.0.1"
+
+#####################################################################################
+# envia SMS
+#####################################################################################
+
+initMensageiro sistema="SMS"
+
+expect "SMS enviado com sucesso." \
+	enviarSMS de=${id1} para="beltrana" \
+	msg="Nao entrem no cinema antes de eu chegar. Pede pra Sicrano esperar 1 min."
+
+expect "SMS enviado com sucesso." \
+	enviarSMS de=${id2} para="sicrano" \
+	msg="Tou chegando. Me espera. Ja vi que vc chegou ;)"
+
+equalFiles arq1=files/outputs/sms.log arq2=testes_aceitacao/saidas/us7_2.txt
+
+logout id=${id1}
+
+logout id=${id2}
+
