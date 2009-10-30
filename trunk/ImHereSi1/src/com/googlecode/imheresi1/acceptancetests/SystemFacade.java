@@ -169,7 +169,7 @@ public class SystemFacade {
 		// Nao sei o que isso faz...
 	}
 
-	public void initChat(String u1, String u2) {
+	public void initChat(String u1, String u2) throws Exception {
 		mySystem.initChat(u1, u2);
 	}
 
