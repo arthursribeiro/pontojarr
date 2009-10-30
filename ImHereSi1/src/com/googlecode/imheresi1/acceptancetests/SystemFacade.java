@@ -65,16 +65,14 @@ public class SystemFacade {
 			throw new Exception("Nao eh permitido alterar o username.");
 		User user = this.getUsuarioPorUserName(userName);
 
-		// Os updates utilizam os sets que ja lancam as excecoes.. refatoramento
-		// das exececoes!
 		if (atributo.equalsIgnoreCase(NOME))
-			user.setName(valor);
+			this.mySystem.updateName(user.getUserName(), valor);
 		if (atributo.equalsIgnoreCase(EMAIL))
-			user.setMail(valor);
+			this.mySystem.updateMail(user.getUserName(), valor);
 		if (atributo.equalsIgnoreCase(TELEFONE))
-			user.setPhone(valor);
+			this.mySystem.updatePhone(user.getUserName(), valor);
 		if (atributo.equalsIgnoreCase(SENHA))
-			user.updatePassword(valor);
+			this.mySystem.updatePass(user.getUserName(), valor);
 
 	}
 

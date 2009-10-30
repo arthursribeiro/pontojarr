@@ -1,15 +1,9 @@
 package com.googlecode.imheresi1.logiclayer;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import sun.misc.BASE64Encoder;
 
 import com.googlecode.imheresi1.logiclayer.localization.Position;
 import com.googlecode.imheresi1.logiclayer.localization.PositionException;
@@ -43,9 +37,9 @@ public class User {
 	 * @throws UserException if any of the data is invalid
 	 */
 	public User(String userName, String password) throws UserException {
-		setPassword(password);
+		this.password = password;
 		this.myPublicInfo = new PublicInfo();
-		setUserName(userName);
+		this.myPublicInfo.setLogin(userName);
 		this.friends = new ArrayList<PublicInfo>();
 		this.visibleFriends = new ArrayList<String>();
 		this.ip = "000.0.0.0";
@@ -78,13 +72,9 @@ public class User {
 	/**
 	 * Method that updates the password that the User object holds
 	 * @param newPass - string representing the new password
-	 * @throws UserException if the password is invalid
 	 */
-	public void updatePassword(String newPass) throws UserException {
-		if (newPass == null || password.trim().equals("")
-				|| newPass.length() < 6)
-			throw new UserException("Senha deve ter no minimo 6 caracteres.");
-		this.password = encripta(newPass);
+	public void updatePassword(String newPass) {
+		this.password = newPass;
 	}
 
 	/**
@@ -130,105 +120,25 @@ public class User {
 	/**
 	 * Method that set's a new IP to the user.
 	 * @param ip - string representing the new IP
-	 * @throws UserException if the string represents a invalid IP
 	 */
-	public void setIp(String ip) throws UserException {
-		if (!this.validIp(ip))
-			throw new UserException("IP invalido.");
+	public void setIp(String ip) {
 		this.ip = ip;
-	}
-
-	/**
-	 * Method that returns if a string represents a valid or invalid IP
-	 * @param Ip - string representing the IP
-	 * @return boolean - true if it's a valid IP, false otherwise
-	 */
-	private boolean validIp(String Ip) {
-		String expression = "^((0|1[0-9]{0,2}|2[0-9]{0,1}|2[0-4][0-9]|25[0-5]|[3-9][0-9]{0,1})\\.){3}(0|1[0-9]{0,2}|2[0-9]{0,1}|2[0-4][0-9]|25[0-5]|[3-9][0-9]{0,1})$";
-
-		Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-		Matcher matcher = pattern.matcher(Ip);
-
-		return matcher.matches();
 	}
 
 	/**
 	 * Method that sets the user's mail.
 	 * @param email - string representing the new email.
-	 * @throws UserException if no mail or an invalid one is passed
 	 */
-	public void setMail(String email) throws UserException {
-		if ((email == null) || (email.trim().equals("")))
-			throw new UserException("E-mail eh um dado obrigatorio.");
-		if (!this.validMail(email))
-			throw new UserException("E-mail invalido.");
+	public void setMail(String email) {
 		this.myPublicInfo.setEmail(email);
-	}
-
-	/**
-	 * Method that returns if a string represents a valid or invalid email
-	 * @param email - string representing the IP
-	 * @return boolean - true if it's a valid email, false otherwise
-	 */
-	private boolean validMail(String email) {
-		String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-
-		Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-		Matcher matcher = pattern.matcher(email);
-
-		return matcher.matches();
-	}
-
-	/**
-	 * Method that sets the user's password
-	 * @param password - string representing the new password.
-	 * @throws UserException if no password or an invalid one is passed
-	 */
-	public void setPassword(String password) throws UserException {
-		if ((password == null) || (password.trim().equals("")))
-			throw new UserException("Senha eh um dado obrigatorio.");
-		if (password.length() < 6)
-			throw new UserException("Senha deve ter no minimo 6 caracteres.");
-		this.password = encripta(password);
-	}
-	
-	/**
-	 * Method that encrypts a password to be saved in the database
-	 * @param senha - string representing the password
-	 * @return String - string representing the encrypted password
-	 */
-	private String encripta(String senha) {
-		try {
-			MessageDigest digest = MessageDigest.getInstance("MD5");
-			digest.update(senha.getBytes());
-			BASE64Encoder encoder = new BASE64Encoder();
-			return encoder.encode(digest.digest());
-		} catch (NoSuchAlgorithmException ns) {
-			ns.printStackTrace();
-			return senha;
-		}
 	}
 	
 	/**
 	 * Method that sets the user's name
 	 * @param name - string representing the new name.
-	 * @throws UserException if no name or an invalid one is passed
 	 */
-	public void setName(String name) throws UserException {
-		if ((name == null) || (name.trim().equals("")))
-			throw new UserException("Nome eh um dado obrigatorio.");
+	public void setName(String name) {
 		this.myPublicInfo.setName(name);
-	}
-
-	/**
-	 * Method that sets the user's userName
-	 * @param userName - string representing the new userName
-	 * @throws UserException if no userName or an invalid one is passed
-	 */
-	private void setUserName(String userName) throws UserException {
-		if ((userName == null) || (userName.trim().equals("")))
-			throw new UserException("Username eh um dado obrigatorio.");
-		this.myPublicInfo.setLogin(userName);
 	}
 
 	/**
