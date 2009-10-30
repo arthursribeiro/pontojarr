@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 import sun.misc.BASE64Encoder;
 
 import com.googlecode.imheresi1.database.Handler;
-import com.googlecode.imheresi1.database.PersistenceManager;
 import com.googlecode.imheresi1.database.PersistenceManagerException;
 import com.googlecode.imheresi1.database.XmlPersistence;
 import com.googlecode.imheresi1.logiclayer.localization.PositionException;
@@ -619,8 +618,10 @@ public class MainSystem {
 
 	/**
 	 * Method to end a chat 
+	 * @throws MainSystemException 
 	 */
-	public void endChat() {
+	public void endChat() throws MainSystemException {
+		if(chat == null) throw new MainSystemException("Chat nao foi iniciado.");
 		chat = null;
 	}
 
