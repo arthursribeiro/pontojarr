@@ -136,7 +136,9 @@ public class MainSystem {
 	private List<String> getInvitationList(String mail) {
 		List<String> invitationList = new ArrayList<String>();
 
-		for (String username : this.invitations.keySet()) {
+		Iterator<String> iter = this.invitations.keySet().iterator();
+		while(iter.hasNext()) {
+			String username = iter.next();
 			if (this.invitations.get(username).contains(mail))
 				invitationList.add(username);
 		}
@@ -344,7 +346,11 @@ public class MainSystem {
 	 */
 	private void refreshMyLocalization(User user, double latitude,
 			double longitude) throws PositionException {
-		for (PublicInfo friendInfo : user.getFriendsPublicInfo()) {
+		
+		Iterator<PublicInfo> iter = user.getFriendsPublicInfo().iterator();
+		
+		while(iter.hasNext()) {
+			PublicInfo friendInfo = iter.next();
 			User friend = this.persistenceManager.getUserByUserName(friendInfo
 					.getLogin());
 			PublicInfo pInfo = friend.getAFriendPublicInfo(user.getUserName());
@@ -490,11 +496,13 @@ public class MainSystem {
 	private User getCreatedUserByName(String name, int occurance) {
 		int found = 0;
 
-		for (int i = 0; i < this.createdUsers.size(); i++) {
-			if (this.createdUsers.get(i).getName().contains(name))
+		Iterator<User> iter = this.createdUsers.iterator();
+		while(iter.hasNext()){
+			User user = iter.next();
+			if (user.getName().contains(name))
 				found++;
 			if (found == occurance)
-				return this.createdUsers.get(i);
+				return user;
 		}
 		return null;
 	}
@@ -505,9 +513,11 @@ public class MainSystem {
 	 * @return User - user object representing the user found.
 	 */
 	private User getCreatedUserByUserName(String userName) {
-		for (User usuario : this.createdUsers) {
-			if (usuario.getUserName().equals(userName))
-				return usuario;
+		Iterator<User> iter = this.createdUsers.iterator();
+		while(iter.hasNext()) {
+			User user = iter.next();
+			if (user.getUserName().equals(userName))
+				return user;
 		}
 		return null;
 	}
@@ -784,11 +794,13 @@ public class MainSystem {
 			this.persistenceManager.saveUser(user, user.getUserName());
 		}
 
-		for (String userName : this.loggedUsers.keySet()) {
+		Iterator<String> iter2 = this.loggedUsers.keySet().iterator();
+		while(iter2.hasNext()) {
+			String userName = iter2.next();
 			this.persistenceManager.saveUser(this.loggedUsers.get(userName),
 					userName);
 		}
-
+		
 		this.persistenceManager.saveInvitations(invitations);
 
 		this.createdUsers.clear();
