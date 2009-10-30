@@ -26,15 +26,15 @@ import com.thoughtworks.xstream.XStream;
  * @author Raissa Sarmento
  * 
  */
-public class PersistenceManagerImpl implements PersistenceManager {
+public class XmlPersistence implements PersistenceManager {
 
 	private XStream xstream;
-	private static PersistenceManagerImpl singletonAttribute = null;
+	private static XmlPersistence singletonAttribute = null;
 	
 	/**
 	 * Private constructor to be used in getInstance, used in singleton
 	 */
-	private PersistenceManagerImpl(){
+	private XmlPersistence(){
 		xstream = new XStream();
 	}
 	
@@ -42,9 +42,9 @@ public class PersistenceManagerImpl implements PersistenceManager {
 	 * Singleton method that guarantees a single instance.
 	 * @return PersistenceManagerImpl single instance
 	 */
-	public static PersistenceManagerImpl getInstance(){
+	public static XmlPersistence getInstance(){
 		if(singletonAttribute == null){
-			singletonAttribute = new PersistenceManagerImpl();
+			singletonAttribute = new XmlPersistence();
 		}
 		return singletonAttribute;
 	}
@@ -157,19 +157,7 @@ public class PersistenceManagerImpl implements PersistenceManager {
 			// e.printStackTrace();
 		}
 		return null;
-	}
-
-	/**
-	 * @see PersistenceManager#resetBD()
-	 */
-	public void resetBD() {
-		File file = new File("files/users");
-
-		for (String i : file.list()) {
-			File del = new File("files/users/" + i);
-			del.delete();
-		}
-	}
+	}	
 
 	/**
 	 * @see PersistenceManager#saveUser(User, String)
