@@ -216,7 +216,8 @@ public class MainSystem {
 	 * @throws MainSystemException if the user does not exist
 	 * @throws UserException if friend is not userName's friend.
 	 */
-	public void removeFriend(String userName, String friend) throws MainSystemException, UserException  {
+	public void removeFriend(String userName, String friend) 
+			throws MainSystemException, UserException  {
 		User user;
 		user = this.getUserByUserName(userName);
 		user.removeFriend(friend);
@@ -231,7 +232,8 @@ public class MainSystem {
 	 * @throws MainSystemException if the user does not exist 
 	 * @throws UserException if the friend's userName is not a friend of the User's object
 	 */
-	public void setSharing(String userName, String friend, int mode) throws MainSystemException, UserException {
+	public void setSharing(String userName, String friend, int mode) 
+			throws MainSystemException, UserException {
 		User user = this.getUserByUserName(friend);
 		user.setSharingOption(userName, mode);
 		this.persistenceManager.saveUser(user, user.getUserName());
@@ -859,7 +861,9 @@ public class MainSystem {
 			User key = this.getUserByUserName(uName);
 			User value = this.getUserByUserName(userName);
 
-			if(this.invitations.containsKey(key.getUserName()) && this.invitations.get(key.getUserName()).contains(value.getMail())) return true;
+			if((this.invitations.containsKey(key.getUserName())) &&
+					(this.invitations.get(key.getUserName()).contains(value.getMail()))) 
+				return true;
 			
 		} catch (MainSystemException e) {
 			//e.printStackTrace();
