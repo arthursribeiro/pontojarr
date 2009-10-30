@@ -1,4 +1,4 @@
-package com.googlecode.imheresi1.logiclayer;
+package com.googlecode.imheresi1.database;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.googlecode.imheresi1.logiclayer.User;
 import com.thoughtworks.xstream.XStream;
 
 /**

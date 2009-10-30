@@ -1,4 +1,4 @@
-package com.googlecode.imheresi1.logiclayer;
+package com.googlecode.imheresi1.database;
 
 /**
  * Class that handles the PersistenceManager class exceptions

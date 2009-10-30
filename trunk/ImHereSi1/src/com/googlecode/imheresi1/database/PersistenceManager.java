@@ -1,7 +1,9 @@
-package com.googlecode.imheresi1.logiclayer;
+package com.googlecode.imheresi1.database;
 
 import java.util.List;
 import java.util.Map;
+
+import com.googlecode.imheresi1.logiclayer.User;
 
 /**
  * Interface that dictates methods that a Persistence Manager object needs to implement
