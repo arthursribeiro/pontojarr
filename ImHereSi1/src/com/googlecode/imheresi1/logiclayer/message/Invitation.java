@@ -16,7 +16,6 @@ import java.util.Scanner;
 public class Invitation extends Message {
 
 	private String fromName;
-	private String to;
 	private String fromMail;
 	private String directory;
 
@@ -30,26 +29,21 @@ public class Invitation extends Message {
 	 * @param dir - string representing the directory in which the predetermined invitation text is stored 
 	 */
 	public Invitation(String fromName, String fromMail, String to, String dir) {
-		super(INVITATION_PATH);
+		super(INVITATION_PATH,INVITATION_SENDER,to);
 		this.fromName = fromName;
-		this.to = to;
 		this.fromMail = fromMail;
 		this.directory = dir;
 	}
 
 	/**
-	 * @see Message#build()
+	 * @see Message#buildBody()
 	 */
-	public String build() {
+	public String buildBody() {
 		StringBuilder sB = new StringBuilder();
-		sB.append("From: iam@email.com");
-		sB.append(System.getProperty("line.separator"));
-		sB.append("to: " + this.to);
-		sB.append(System.getProperty("line.separator"));
 		sB.append("Subject: " + this.fromName
 				+ " gostaria de compartilhar sua localização com você");
-		sB.append(System.getProperty("line.separator"));
-		sB.append(System.getProperty("line.separator"));
+		sB.append(SYSTEM_SEPARATOR);
+		sB.append(SYSTEM_SEPARATOR);
 		
 		String content = getInviteText();
 		
@@ -57,10 +51,7 @@ public class Invitation extends Message {
 		content = content.replace("<emailUsuario>", this.fromMail);
 		
 		sB.append(content);
-		sB.append(System.getProperty("line.separator"));
-		sB.append("***************************************************************************************************");
-		sB.append(System.getProperty("line.separator"));
-
+		
 		return sB.toString();
 	}
 

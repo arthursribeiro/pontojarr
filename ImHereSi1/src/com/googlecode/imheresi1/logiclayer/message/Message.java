@@ -22,18 +22,51 @@ public abstract class Message {
 	protected static final String EMAIL_PATH = "files/outputs/emails.log";
 	protected static final String SMS_PATH = "files/outputs/sms.log";
 	protected static final String INVITATION_PATH = "files/outputs/convites.log";	
-
+	protected static final String INVITATION_SENDER = "iam@email.com";
+	protected static final String SYSTEM_SEPARATOR = System.getProperty("line.separator");
+	protected static final String SEPARATOR = "***************************************************************************************************";
+	
+	private String sender;
+	private String receiver;
+	
 	protected String path;
 	
-	public Message(String path){
+	public Message(String path,String from, String to){
 		this.path = path;
+		this.sender = from;
+		this.receiver = to;
 	}
 	
 	/**
 	 * Method to return the whole message, already formated and ready to be sent  
 	 * @return string representing the formated message.
 	 */
-	public abstract String build();
+	public abstract String buildBody();
+	
+	public String build(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(buildHeader());
+		sb.append(buildBody());
+		sb.append(buildFooter());
+		return sb.toString();
+	}
+	
+	public String buildHeader(){
+		StringBuilder sB = new StringBuilder();
+		sB.append("From: " + this.sender);
+		sB.append(SYSTEM_SEPARATOR);
+		sB.append("to: " + this.receiver);
+		sB.append(SYSTEM_SEPARATOR);
+		return sB.toString();
+	}
+	
+	public String buildFooter(){
+		StringBuilder sB = new StringBuilder();
+		sB.append(SYSTEM_SEPARATOR);
+		sB.append(SEPARATOR);
+		sB.append(SYSTEM_SEPARATOR);
+		return sB.toString();
+	}	
 	
 	/**
 	 * Method to effectively send a message, writes the content in the log. if no log exists, creates a new file

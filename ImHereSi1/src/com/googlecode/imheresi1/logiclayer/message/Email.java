@@ -12,8 +12,6 @@ package com.googlecode.imheresi1.logiclayer.message;
 
 public class Email extends Message {
 
-	private String from;
-	private String to;
 	private String subject;
 	private String msg;
 
@@ -27,32 +25,23 @@ public class Email extends Message {
 	 * @param msg - string representing the email message itself.
 	 */
 	public Email(String from, String to, String subject, String msg) {
-		super(EMAIL_PATH);
-		this.from = from;
-		this.to = to;
+		super(EMAIL_PATH,from,to);
 		this.subject = subject;
 		this.msg = msg;
 	}
-
+	
 	/**
-	 * @see Message#build()
+	 * @see Message#buildBody()
 	 */
-	public String build() {
-
+	public String buildBody() {
 		StringBuilder sB = new StringBuilder();
 
-		sB.append("From: " + this.from);
-		sB.append(System.getProperty("line.separator"));
-		sB.append("to: " + this.to);
-		sB.append(System.getProperty("line.separator"));
 		sB.append("Subject: " + this.subject);
-		sB.append(System.getProperty("line.separator"));
-		sB.append(System.getProperty("line.separator"));
+		sB.append(SYSTEM_SEPARATOR);
+		sB.append(SYSTEM_SEPARATOR);
 		sB.append(this.msg);
-		sB.append(System.getProperty("line.separator"));
-		sB.append(System.getProperty("line.separator"));
-		sB.append("***************************************************************************************************");
-		sB.append(System.getProperty("line.separator"));
+		sB.append(SYSTEM_SEPARATOR);
+		
 		return sB.toString();
 	}
 

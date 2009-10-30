@@ -28,7 +28,7 @@ public class Chat extends Message {
 	 * @param u2 - the other user in the chat.
 	 */
 	public Chat(String u1, String u2) {
-		super("");
+		super("",u1,u2);
 		this.user1 = u1;
 		this.user2 = u2;
 		sB = new StringBuilder();
@@ -65,14 +65,14 @@ public class Chat extends Message {
 	}
 
 	/**
-	 * @see Message#build()
+	 * @see Message#buildBody()
 	 */
-	public String build() {
+	public String buildBody() {
 		return sB.toString();
 	}
 
 	/**
-	 * Method to set the path name according to the user's envolved
+	 * Method to set the path name according to the user's involved
 	 */
 	private void setPath() {
 		if (user1.compareToIgnoreCase(user2) > 0)
