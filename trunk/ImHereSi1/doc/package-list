@@ -1,0 +1,6 @@
+com.googlecode.imheresi1.acceptancetests
+com.googlecode.imheresi1.database
+com.googlecode.imheresi1.logiclayer
+com.googlecode.imheresi1.logiclayer.localization
+com.googlecode.imheresi1.logiclayer.message
+com.googlecode.imheresi1.presentationlayer.commandline
