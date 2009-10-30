@@ -17,9 +17,20 @@ public class Handler {
 	
 	public static Handler getInstance(PersistenceManager bd) {
 		if (handler == null) {
+			checkDir("files");
+			checkDir("files/chats");
+			checkDir("files/invitation");
+			checkDir("files/outputs");
+			checkDir("files/users");
 			handler = new Handler(bd);
 		}
 		return handler;
+	}
+	
+	private static void checkDir(String path) {
+		File file = new File(path);
+		if(!file.exists())
+			file.mkdir();
 	}
 	
 	private void clearUsers() {
