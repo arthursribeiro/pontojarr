@@ -11,8 +11,6 @@ package com.googlecode.imheresi1.logiclayer.message;
  */
 public class SMS extends Message {
 
-	private String from;
-	private String to;
 	private String msg;
 
 	/**
@@ -24,29 +22,19 @@ public class SMS extends Message {
 	 * @param msg - string representing the message itself.
 	 */
 	public SMS(String from, String to, String msg) {
-		super(SMS_PATH);
-		this.from = from;
-		this.to = to;
+		super(SMS_PATH,from,to);
 		this.msg = msg;
 	}
 
 	/**
-	 * @see Message#build()
+	 * @see Message#buildBody()
 	 */
-	public String build() {
-
+	public String buildBody() {
 		StringBuilder sB = new StringBuilder();
 
-		sB.append("From: " + this.from);
-		sB.append(System.getProperty("line.separator"));
-		sB.append("to: " + this.to);
-		sB.append(System.getProperty("line.separator"));
-		sB.append(System.getProperty("line.separator"));
+		sB.append(SYSTEM_SEPARATOR);
 		sB.append(this.msg);
-		sB.append(System.getProperty("line.separator"));
-		sB.append(System.getProperty("line.separator"));
-		sB.append("***************************************************************************************************");
-		sB.append(System.getProperty("line.separator"));
+		sB.append(SYSTEM_SEPARATOR);
 
 		return sB.toString();
 	}
