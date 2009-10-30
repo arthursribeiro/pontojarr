@@ -71,9 +71,7 @@ public class SystemSecondMenu {
 				system.updatePass(userName, valor);
 			} catch (MainSystemException e) {
 				System.out.println(e.getMessage());
-			} catch (UserException e) {
-				System.out.println(e.getMessage());
-			}
+			} 
 			break;
 			case(2):
 				System.out.print("Novo e-mail: ");

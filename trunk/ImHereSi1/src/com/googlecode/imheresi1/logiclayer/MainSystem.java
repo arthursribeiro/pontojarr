@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import sun.misc.BASE64Encoder;
 
@@ -275,9 +277,10 @@ public class MainSystem {
 	 * @return string - string representing the logged userName
 	 * @throws UserException if the string represents a invalid IP or login and password do not match
 	 * @throws PositionException if the values ate not valid or could not find the GeoIP database
+	 * @throws MainSystemException 
 	 */
 	public String logIn(String userName, String password, String ip)
-			throws UserException, PositionException {
+			throws UserException, PositionException, MainSystemException {
 		User userToLogIn = this.getCreatedUserByUserName(userName);
 
 		if (userToLogIn == null) {
@@ -287,6 +290,8 @@ public class MainSystem {
 		}
 
 		if (userToLogIn.willChangeIp(ip)) {
+			if (!this.validIp(ip))
+				throw new MainSystemException("IP invalido.");
 			userToLogIn.setIp(ip);
 			this.refreshMyLocalization(userToLogIn, ip);
 		}
@@ -296,6 +301,20 @@ public class MainSystem {
 
 		loggedUsers.put(userToLogIn.getUserName(), userToLogIn);
 		return userToLogIn.getUserName();
+	}
+	
+	/**
+	 * Method that returns if a string represents a valid or invalid IP
+	 * @param Ip - string representing the IP
+	 * @return boolean - true if it's a valid IP, false otherwise
+	 */
+	private boolean validIp(String Ip) {
+		String expression = "^((0|1[0-9]{0,2}|2[0-9]{0,1}|2[0-4][0-9]|25[0-5]|[3-9][0-9]{0,1})\\.){3}(0|1[0-9]{0,2}|2[0-9]{0,1}|2[0-4][0-9]|25[0-5]|[3-9][0-9]{0,1})$";
+
+		Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(Ip);
+
+		return matcher.matches();
 	}
 	
 	/**
@@ -377,11 +396,27 @@ public class MainSystem {
 			String name, String phone) throws MainSystemException,
 			UserException {
 
+		if ((password == null) || (password.trim().equals("")))
+			throw new MainSystemException("Senha eh um dado obrigatorio.");
+		if (password.length() < 6)
+			throw new MainSystemException("Senha deve ter no minimo 6 caracteres.");
+		
+		if ((email == null) || (email.trim().equals("")))
+			throw new MainSystemException("E-mail eh um dado obrigatorio.");
+		if (!this.validMail(email))
+			throw new MainSystemException("E-mail invalido.");
+		
+		if ((userName == null) || (userName.trim().equals("")))
+			throw new UserException("Username eh um dado obrigatorio.");
+		
+		if ((name == null) || (name.trim().equals("")))
+			throw new MainSystemException("Nome eh um dado obrigatorio.");
+		
 		if ((persistenceManager.hasUser(userName))
 				|| (this.getCreatedUserByUserName(userName) != null))
 			throw new MainSystemException("O username jah existe.");
 
-		User newUser = new User(userName, password);
+		User newUser = new User(userName, encripta(password));
 		newUser.setMail(email);
 		newUser.setName(name);
 		newUser.setPhone(phone);
@@ -390,6 +425,20 @@ public class MainSystem {
 
 	}
 
+	/**
+	 * Method that returns if a string represents a valid or invalid email
+	 * @param email - string representing the IP
+	 * @return boolean - true if it's a valid email, false otherwise
+	 */
+	private boolean validMail(String email) {
+		String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+
+		Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(email);
+
+		return matcher.matches();
+	}
+	
 	/**
 	 * Method that gets a User Object found by the given name and occurrence.
 	 * The occurrence value determines which user to return in case of multiple users in which the names match the parameter name
@@ -608,6 +657,10 @@ public class MainSystem {
 	 */
 	public void updateName(String userName, String newName)
 			throws UserException, MainSystemException {
+		
+		if ((newName == null) || (newName.trim().equals("")))
+			throw new MainSystemException("Nome eh um dado obrigatorio.");
+		
 		User user = this.getUserByUserName(userName);
 		user.setName(newName);
 		
@@ -685,17 +738,21 @@ public class MainSystem {
 	 * @param userName - string representing the user's userName
 	 * @param newPassword - string representing the new password
 	 * @throws MainSystemException if the user does not exist
-	 * @throws UserException if the password is invalid
 	 */
-	public void updatePass(String userName, String newPassword)
-			throws MainSystemException, UserException {
+	public void updatePass(String userName, String newPass)
+			throws MainSystemException{
+		
+		if (newPass == null || newPass.trim().equals("") || newPass.length() < 6)
+			throw new MainSystemException("Senha deve ter no minimo 6 caracteres.");
+		
 		User user = this.getUserByUserName(userName);
-		user.updatePassword(newPassword);
+		user.updatePassword(encripta(newPass));
 				
 		this.persistenceManager.saveUser(user, userName);
 		this.loggedUsers.put(user.getUserName(), user);
 	}
 
+	
 	/**
 	 * Method to remove all friends of a given user 
 	 * @param user - User object to be removed all of his friends
