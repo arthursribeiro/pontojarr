@@ -96,8 +96,7 @@ public class XmlPersistence implements PersistenceManager {
 	 * @see PersistenceManager#getUserByName(String, int)
 	 */
 	public User getUserByName(String name, int occurrence) {
-		ArrayList<User> users = new ArrayList<User>();
-		ArrayList<String> names = new ArrayList<String>();
+		List<User> users = new ArrayList<User>();
 
 		File file = new File("files/users");
  
@@ -117,28 +116,38 @@ public class XmlPersistence implements PersistenceManager {
 			}
 		}
 
+		return getUserInPosition(name, occurrence, users);
+	}
+	
+	/**
+	 * Method that return the user in the passed occurrence(alphabetical order) and has
+	 * the named passed as parameter on its name.
+	 * @param name
+	 * @param occurrence
+	 * @param users
+	 * @return User that happens in the passed occurrence
+	 */
+	private User getUserInPosition(String name, int occurrence, List<User> users) {
+		List<String> names = new ArrayList<String>();
 		Iterator<User> iter = users.iterator();
 		while(iter.hasNext()) {
 			User user = iter.next();
-			if(user.getName().substring(0, name.length()).equals(name))
+			if(user.getName().substring(0, name.length()).toLowerCase().equals(name.toLowerCase()))
 				names.add(user.getName().toLowerCase());
 		}
-		
 		Object[] sorted = names.toArray();
 		Arrays.sort(sorted);
 		int occ = 0;
 		for (Object i : sorted) {
 			for (User u : users) {
-				if (u.getName().toLowerCase().equals(i)) {
+				if (u.getName().toLowerCase().equals(i))
 					occ++;
-				}
-				if (occ == occurrence) {
+				if (occ == occurrence)
 					return u;
-				}
 			}
 		}
-		
 		return null;
+		
 	}
 
 	/**
