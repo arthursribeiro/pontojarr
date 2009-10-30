@@ -10,6 +10,9 @@ import java.util.Map;
 
 import sun.misc.BASE64Encoder;
 
+import com.googlecode.imheresi1.database.PersistenceManager;
+import com.googlecode.imheresi1.database.PersistenceManagerException;
+import com.googlecode.imheresi1.database.PersistenceManagerImpl;
 import com.googlecode.imheresi1.logiclayer.localization.PositionException;
 import com.googlecode.imheresi1.logiclayer.message.Chat;
 import com.googlecode.imheresi1.logiclayer.message.Email;
