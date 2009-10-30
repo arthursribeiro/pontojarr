@@ -48,11 +48,6 @@ public interface PersistenceManager {
 	User getUserByUserName(String userName) ;
 
 	/**
-	 * Method that deletes all the files in the System's database
-	 */
-	void resetBD();
-
-	/**
 	 * Method that deletes all invitations sent through the System
 	 */
 	void clearInvitations();

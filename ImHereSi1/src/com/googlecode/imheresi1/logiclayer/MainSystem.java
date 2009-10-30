@@ -12,9 +12,10 @@ import java.util.regex.Pattern;
 
 import sun.misc.BASE64Encoder;
 
+import com.googlecode.imheresi1.database.Handler;
 import com.googlecode.imheresi1.database.PersistenceManager;
 import com.googlecode.imheresi1.database.PersistenceManagerException;
-import com.googlecode.imheresi1.database.PersistenceManagerImpl;
+import com.googlecode.imheresi1.database.XmlPersistence;
 import com.googlecode.imheresi1.logiclayer.localization.PositionException;
 import com.googlecode.imheresi1.logiclayer.message.Chat;
 import com.googlecode.imheresi1.logiclayer.message.Email;
@@ -37,9 +38,9 @@ public class MainSystem {
 	public static final int OCULTAR = 1;
 	public static final int EXIBIR = 2;
 
-	private HashMap<String, User> loggedUsers;
+	private Map<String, User> loggedUsers;
 	private List<User> createdUsers;
-	private PersistenceManager persistenceManager;
+	private Handler persistenceManager;
 	private Chat chat;
 	private String invitationsDirectory = "";
 
@@ -50,7 +51,7 @@ public class MainSystem {
 	 * Constructor
 	 */
 	private MainSystem() {
-		this.persistenceManager = PersistenceManagerImpl.getInstance();
+		this.persistenceManager = Handler.getInstance(XmlPersistence.getInstance());
 		this.invitations = this.persistenceManager.getInvitations();
 		if (this.invitations == null)
 			this.invitations = new HashMap<String, List<String>>();
