@@ -23,9 +23,6 @@ public class CommandLineInterface {
 	private static final int CREATE_USER = 2;
 	private static final int EXIT = 3;
 
-	public CommandLineInterface(){
-		mySystem = MainSystem.getInstance();
-	}
 	
 	private static int getOption(String option){
 		int chosenNumber;
@@ -124,6 +121,7 @@ public class CommandLineInterface {
 	}
 	
 	public static void main(String[] args) {
+		mySystem = MainSystem.getInstance();
 		input = new Scanner(System.in);
 
 		System.out.print(PROMPT_1 + SEPARATOR + PROMPT_2);
