@@ -1,0 +1,44 @@
+#####################################################################################
+# User Story de Recuperacao da localizacao dos amigos
+#####################################################################################
+
+id1=login userName="fulano" senha="123456" ip="127.0.0.1"
+
+id2=login userName="beltrana" senha="654321" ip="127.0.0.1"
+
+id3=login userName="sicrano" senha="645ju2" ip="127.0.0.1"
+
+setLocalizacao usuario=${id3} latitude=-8.0496103955 longitude=-34.9237844032
+
+#####################################################################################
+# recuperar localizacoa dos amigos
+#####################################################################################
+
+# localizacoes ocultas
+
+expect "Localizacao desconhecida." getLocalizacaoAmigo usuario=${id2} amigo="fulano"
+
+expect "Localizacao desconhecida." getLocalizacaoAmigo usuario=${id1} amigo="sicrano"
+
+expect "Localizacao desconhecida." getLocalizacaoAmigo usuario=${id3} amigo="fulano"
+
+# localizacoes compartilhadas
+
+expect "Lat: -7.124546, Long: -34.867554" getLocalizacaoAmigo usuario=${id1} amigo="beltrana"
+
+expect "Lat: -7.124546, Long: -34.867554" getLocalizacaoAmigo usuario=${id3} amigo="beltrana"
+
+expect "Lat: -8.0496103955, Long: -34.9237844032" getLocalizacaoAmigo usuario=${id2} amigo="sicrano"
+
+#erros
+
+expectError "Usuario desconhecido." getLocalizacaoAmigo usuario=${id3} amigo="jurema"
+
+expectError "Permissao negada." getLocalizacaoAmigo usuario=id54 amigo="jurema"
+
+logout id=${id1}
+
+logout id=${id2}
+
+logout id=${id3}
+

@@ -1,0 +1,64 @@
+#####################################################################################
+# User Story de Edicao de opcoes de compartilhamento
+#####################################################################################
+
+id1=login userName="fulano" senha="123456" ip="127.0.0.1"
+
+id2=login userName="beltrana" senha="654321" ip="127.0.0.1"
+
+id3=login userName="sicrano" senha="645ju2" ip="127.0.0.1"
+
+expect "[Beltrana da Silva, Sicrano Souza]" getAmigos usuario=${id1}
+
+expect "[Fulano de Tal, Jurema Santos, Sicrano Souza]" getAmigos usuario=${id2}
+
+expect "[Beltrana da Silva, Fulano de Tal]" getAmigos usuario=${id3}
+
+# verificando modo de compartilhamento
+
+expect true possoVerLocalizacao usuario=${id1} amigo="beltrana"
+
+expect true possoVerLocalizacao usuario=${id3} amigo="beltrana"
+
+expect true possoVerLocalizacao usuario=${id3} amigo="fulano"
+
+expect false possoVerLocalizacao usuario=${id1} amigo="sicrano"
+
+expectError "Usuario desconhecido." possoVerLocalizacao usuario=${id1} amigo="amigo"
+
+#####################################################################################
+# editar modo de compartilhamento
+#####################################################################################
+
+setCompartilhamento usuario=${id1} amigo="sicrano" modo=1
+
+expect false possoVerLocalizacao usuario=${id3} amigo="fulano"
+
+setCompartilhamento usuario=${id1} amigo="beltrana" modo=1
+
+expect false possoVerLocalizacao usuario=${id2} amigo="fulano"
+
+setCompartilhamento usuario=${id3} amigo="beltrana" modo=2
+
+expect true possoVerLocalizacao usuario=${id2} amigo="sicrano"
+
+#####################################################################################
+# excluir amigo
+#####################################################################################
+
+removerAmigo usuario=${id2} amigo="jurema"
+
+expectError "Usuario desconhecido." possoVerLocalizacao usuario=${id2} amigo="jurema"
+
+expect "[Fulano de Tal, Sicrano Souza]" getAmigos usuario=${id2}
+
+expectError "Usuario desconhecido." removerAmigo usuario=${id2} amigo="jurema"
+
+expectError "Permissao negada." removerAmigo usuario=id54 amigo="jurema"
+
+logout id=${id1}
+
+logout id=${id2}
+
+logout id=${id3}
+

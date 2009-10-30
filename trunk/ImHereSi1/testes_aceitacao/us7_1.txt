@@ -1,0 +1,27 @@
+#####################################################################################
+# User Story de Envio de email para amigos
+#####################################################################################
+
+id1=login userName="fulano" senha="123456" ip="127.0.0.1" 
+
+id2=login userName="beltrana" senha="654321" ip="127.0.0.1"
+
+#####################################################################################
+# envia emails
+#####################################################################################
+
+initMensageiro sistema="email"
+
+expect "Email enviado com sucesso." \
+	enviarEmail de=${id2} para="fulano" assunto="Como estais?" \
+	msg="Nao tive mais noticias suas. Por onde vc anda? Saudades!"
+
+expect "Email enviado com sucesso." \
+	enviarEmail de=${id1} para="sicrano" assunto="Moras aqui ainda?" \
+	msg="Passei proximo a sua casa, verifiquei no I'mHere para saber se vc se encontrava la, mas sua localizacao nao estava disponivel. Vc se mudou? Ate mais!"
+
+equalFiles arq1=files/outputs/emails.log arq2=testes_aceitacao/saidas/us7_1.txt
+logout id=${id1}
+
+logout id=${id2}
+

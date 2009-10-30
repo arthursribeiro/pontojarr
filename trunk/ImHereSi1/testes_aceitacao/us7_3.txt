@@ -1,0 +1,46 @@
+#####################################################################################
+# User Story de Conversa por chat entre amigos
+#####################################################################################
+
+id1=login userName="fulano" senha="123456" ip="127.0.0.1" 
+
+id2=login userName="beltrana" senha="654321" ip="127.0.0.1"
+
+#####################################################################################
+# envia mensagens instataneas
+#####################################################################################
+
+initMensageiro sistema="chat"
+
+setPortChat port=80
+
+initChat usuario1=${id1} usuario2=${id2}
+
+# os chats devem ser salvos em um log com o login dos amigos, por exemplo:
+# se fulano e beltrana iniciam uma conversa por chat (como está abaixo), 
+# o nome do log da conversa deve ser beltrana-fulano.log, ou seja, seguindo
+# a ordem alfabetica dos usuarios envolvidos.
+
+enviarMensagem para=${id2} msg="oi"
+
+msg=receberMensagem de=${id1}
+
+enviarMensagem para=${id1} msg="oi. Tou de saida ;P o/"
+
+msg=receberMensagem de=${id2}
+
+enviarMensagem para=${id2} msg="certo. A gente se fala depois :) o/"
+
+msg=receberMensagem de=${id1}
+
+encerrarChat usuario1=${id1} usuario2=${id2}
+
+equalFiles arq1=files/chats/beltrana-fulano.log arq2=testes_aceitacao/saidas/us7_3.txt
+
+logout id=${id1}
+
+logout id=${id2}
+
+encerrarSistema
+
+zerarSistema

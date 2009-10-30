@@ -1,0 +1,73 @@
+#####################################################################################
+# User Story de Compartilhamento de Localizacao
+#####################################################################################
+
+id1=login userName="fulano" senha="123456" ip="127.0.0.1" 
+
+id2=login userName="beltrana" senha="654321" ip="127.0.0.1"
+
+#####################################################################################
+# Os convites enviados devem ser gravados em um arquivo chamado convites.log, o
+# qual sera utilizado para testes
+#####################################################################################
+
+initMensageiro sistema="email"
+setDiretorioGabaritos valor=gabarito
+
+expect "Documento convite.txt enviado com sucesso." \
+	enviarConvite de=${id1} para="beltrana@email.com"
+
+expect "Documento convite.txt enviado com sucesso." \
+	enviarConvite de=${id1} para="sicrano@email.com"
+
+expect "Documento convite.txt enviado com sucesso." \
+	enviarConvite de=${id2} para="sicrano@email.com"
+
+expect "Documento convite.txt enviado com sucesso." \
+	enviarConvite de=${id2} para="jurema@email.com"
+
+expect "Documento convite.txt enviado com sucesso." \
+	enviarConvite de=${id2} para="clementino@email.com"
+
+equalFiles arq1=files/outputs/convites.log arq2=testes_aceitacao/saidas/us4_1.txt
+
+# cadastra e autentica os usuarios convidados caso ainda nao possuam conta no sistema
+# os modos de compartilhamento sao:
+# 1 - Ocultar
+# 2 - Exibir
+
+id3=cadastrarUsuario userName="sicrano" nome="Sicrano Souza" email="sicrano@email.com" \
+senha="645ju2" telefone="558333333333" ip="127.0.0.1"
+
+id4=cadastrarUsuario userName="jurema" nome="Jurema Santos" email="jurema@email.com" \
+senha="8797n75" telefone="558355555555" ip="127.0.0.1"
+
+id5=cadastrarUsuario userName="clementino" nome="Clementino Pereira" email="clementino@email.com" \
+senha="97887huy" telefone="558366666666" ip="127.0.0.1"
+
+#####################################################################################
+# confirmacao de compartilhamento
+#####################################################################################
+
+confirmarCompartilhamento de=${id2} com="fulano" modo=2
+confirmarCompartilhamento de=${id3} com="fulano" modo=1 
+confirmarCompartilhamento de=${id3} com="beltrana" modo=1
+confirmarCompartilhamento de=${id4} com="beltrana" modo=2
+
+recusarCompartilhamento de=${id5} com="beltrana"
+
+expect "[Beltrana da Silva, Sicrano Souza]" getAmigos usuario=${id1}
+
+expect "[Fulano de Tal, Jurema Santos, Sicrano Souza]" getAmigos usuario=${id2}
+
+# apenas usuarios autenticados podem ver seus amigos
+expectError "Permissao negada." getAmigos usuario=id878
+
+logout id=${id1}
+
+logout id=${id2}
+
+logout id=${id3}
+
+logout id=${id4}
+
