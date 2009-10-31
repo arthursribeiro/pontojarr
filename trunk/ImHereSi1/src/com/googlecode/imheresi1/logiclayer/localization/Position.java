@@ -6,7 +6,6 @@ import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
 
 /**
- * 
  * Class that handles the Position type
  * This type stores values for latitude and longitude to specify the location of a user 
  * GeoIP module is needed in order to use the constructor through IP. 
@@ -29,7 +28,7 @@ public class Position {
 	 * Constructor for creating the Position object in an automatic way.
 	 * Uses GeoIP to find the values of longitude and latitude through the given IP.
 	 * Sets the values obtained in the object. 
-	 * @param ip - IP to obtain the values of latitude and longitude from
+	 * @param ip IP to obtain the values of latitude and longitude from
 	 * @throws PositionException if the values ate not valid or could not find the GeoIP database
 	 */
 	public Position(String ip) throws PositionException {
@@ -52,8 +51,8 @@ public class Position {
 	/**
 	 * Constructor for creating the Position object in a manual way.
 	 * Manually setting the values of latitude and longitude
-	 * @param lat - new latitude to store
-	 * @param lon - new longitude to store
+	 * @param latitude new latitude to store
+	 * @param longitude new longitude to store
 	 * @throws PositionException if either one of the values passed are not valid. 
 	 */
 	public Position(double latitude, double longitude) throws PositionException {
@@ -62,8 +61,8 @@ public class Position {
 
 	/**
 	 * Sets the values of longitude and latitude stored in the position object.
-	 * @param lat - new latitude to store
-	 * @param lon - new longitude to store
+	 * @param lat new latitude to store
+	 * @param lon new longitude to store
 	 * @throws PositionException if either one of the values passed are not valid. 
 	 */
 	public void setPosition(double lat, double lon) throws PositionException {
@@ -77,9 +76,9 @@ public class Position {
 	 * Validate the given values passed as attributes.
 	 * Longitude is valid if in the range -180 < longitude < 180 (inclusive)
 	 * Latitude is valid if in the range -90 < longitude < 90 (inclusive)  
-	 * @param lat - latitude to validate
-	 * @param lon - longitude to validate
-	 * @return boolean - true if both lon and lat are valid. false otherwise.
+	 * @param lat latitude to validate
+	 * @param lon longitude to validate
+	 * @return true if both lon and lat are valid. false otherwise.
 	 */
 	private boolean isLocation(double lat, double lon) {
 		return ((lon >= -180 && lon <= 180) && (lat >= -90 && lat <= 90));
@@ -87,7 +86,7 @@ public class Position {
 
 	/**
 	 * This method returns the current Latitude stored in the Position object. 
-	 * @return latitude
+	 * @return string representing the latitude
 	 */
 	public double getLatitude() {
 		return this.latitude;
@@ -95,7 +94,7 @@ public class Position {
 
 	/**
 	 * This method returns the current Longitude stored in the Position object. 
-	 * @return longitude
+	 * @return string representing the longitude
 	 */
 	public double getLongitude() {
 		return this.longitude;
@@ -103,7 +102,7 @@ public class Position {
 
 	/**
 	 * Method to format the data (Latitude and Longitude) stored in the Position object for better visualization and understandment of the values.
-	 * @return position to string
+	 * @return string representing the formatted data
 	 */
 	public String toString() {
 		return "Lat: " + this.latitude + ", Long: " + this.longitude;

@@ -60,7 +60,7 @@ public class MainSystem {
 	
 	/**
 	 * Singleton method that guarantees a single instance.
-	 * @return MainSystem single instance
+	 * @return single instance
 	 */
 	public static MainSystem getInstance(){
 		if(singletonAttribute == null){
@@ -71,7 +71,7 @@ public class MainSystem {
 
 	/**
 	 * Method to set the directory in the System where the invitations predetermined text is stored
-	 * @param value - string representing the path to the directory
+	 * @param value string representing the path to the directory
 	 */
 	public void setDirectory(String value) {
 		this.invitationsDirectory = value;
@@ -79,9 +79,9 @@ public class MainSystem {
 
 	/**
 	 * Method to get the friend position given a userName and the friend's userName   
-	 * @param userName - string representing the userName of the user
-	 * @param userNameToLocalize - string representing the userName of the user's friend
-	 * @return string - formated string representing the location of the user userNameToLocalize 
+	 * @param userName string representing the userName of the user
+	 * @param userNameToLocalize string representing the userName of the user's friend
+	 * @return formated string representing the location of the user userNameToLocalize 
 	 * @throws MainSystemException if the user does not exist
 	 * @throws PositionException if the position was not possible to obtain
 	 * @throws UserException if the given userName is not a friend
@@ -95,8 +95,8 @@ public class MainSystem {
 
 	/**
 	 * Method to return a formatted string containing the invitations sent to a specific user
-	 * @param username - string representing the user
-	 * @return string - formatted string
+	 * @param username string representing the user
+	 * @return formatted string
 	 * @throws MainSystemException if the user does not exist
 	 */
 	public String toStringMyInvitations(String username) throws MainSystemException {
@@ -107,7 +107,7 @@ public class MainSystem {
 		invitationList = getInvitationList(user.getMail());
 
 		String separator = System.getProperty("line.separator");
-		String saida = "================================================================="
+		String formatted = "================================================================="
 				+ separator
 				+ "Username                  Nome                            "
 				+ separator
@@ -122,15 +122,15 @@ public class MainSystem {
 			String userName = iter.next();
 			User u;
 			u = this.getUserByUserName(userName);
-			saida += userName + "                   " + u.getName();
+			formatted += userName + "                   " + u.getName();
 		}
-		return saida;
+		return formatted;
 	}
 
 	/**
 	 * Method that returns the list of invitations sent to a specific e-mail 
-	 * @param mail - string representing the user's e-mail
-	 * @return List<String> - List of userName's who sent an invitation to the e-mail
+	 * @param mail string representing the user's e-mail
+	 * @return List of userName's who sent an invitation to the e-mail
 	 */
 	private List<String> getInvitationList(String mail) {
 		List<String> invitationList = new ArrayList<String>();
@@ -147,9 +147,9 @@ public class MainSystem {
 
 	/**
 	 * Method to confirm sharing between two user's given that an invitation was sent between the user's
-	 * @param from - string representing the user who sent the invitation
-	 * @param with - string representing the user who received the invitation
-	 * @param mode - mode of sharing (1: Not Visible, 2: Visible)
+	 * @param from string representing the user who sent the invitation
+	 * @param with string representing the user who received the invitation
+	 * @param mode mode of sharing (1: Not Visible, 2: Visible)
 	 * @throws MainSystemException if the invitation was not sent
 	 * @throws UserException if the user's are already friends
 	 */
@@ -177,8 +177,8 @@ public class MainSystem {
 
 	/**
 	 * Method to set the position of the user through an IP.
-	 * @param userName - string representing the user's userName
-	 * @param ip - string representing the IP to set the user's position
+	 * @param userName string representing the user's userName
+	 * @param ip string representing the IP to set the user's position
 	 * @throws MainSystemException if the user does not exist
 	 * @throws PositionException if the values ate not valid or could not find the GeoIP database
 	 */
@@ -193,9 +193,9 @@ public class MainSystem {
 
 	/**
 	 * Method to set the position of the user through values representing the latitude and longitude.
-	 * @param userName - string representing the user's userName 
-	 * @param latitude - latitude value
-	 * @param longitude - longitude value
+	 * @param userName string representing the user's userName 
+	 * @param latitude latitude value
+	 * @param longitude longitude value
 	 * @throws MainSystemException if the user does not exist
 	 * @throws PositionException if the values ate not valid or could not find the GeoIP database
 	 */
@@ -210,8 +210,8 @@ public class MainSystem {
 
 	/**
 	 * Method to remove a friendship connection between two user's
-	 * @param userName - string representing the user's userName
-	 * @param friend - string representing the friend's userName
+	 * @param userName string representing the user's userName
+	 * @param friend string representing the friend's userName
 	 * @throws MainSystemException if the user does not exist
 	 * @throws UserException if friend is not userName's friend.
 	 */
@@ -225,9 +225,9 @@ public class MainSystem {
 
 	/**
 	 * Method to set the sharing mode of userName in relation to friend
-	 * @param userName - string representing the user's userName
-	 * @param friend - string representing the friend's userName
-	 * @param mode - mode of sharing (1: Not Visible, 2: Visible)
+	 * @param userName string representing the user's userName
+	 * @param friend string representing the friend's userName
+	 * @param mode mode of sharing (1: Not Visible, 2: Visible)
 	 * @throws MainSystemException if the user does not exist 
 	 * @throws UserException if the friend's userName is not a friend of the User's object
 	 */
@@ -240,8 +240,8 @@ public class MainSystem {
 
 	/**
 	 * Method to refuse sharing between two user's given that an invitation was sent between the user's
-	 * @param from - string representing the user who sent the invitation
-	 * @param with - string representing the user who received the invitation
+	 * @param from string representing the user who sent the invitation
+	 * @param with string representing the user who received the invitation
 	 * @throws MainSystemException if the invitation was not sent
 	 */
 	public void refuseSharing(String from, String with)
@@ -262,8 +262,8 @@ public class MainSystem {
 
 	/**
 	 * Method that returns a list of names, representing the friends of a given user
-	 * @param userName - string representing the user's userName
-	 * @return string - list of names in a formatted manner
+	 * @param userName string representing the user's userName
+	 * @return list of names in a formatted manner
 	 * @throws MainSystemException if the user does not exist 
 	 */
 	public String getFriends(String userName) throws MainSystemException {
@@ -275,10 +275,10 @@ public class MainSystem {
 
 	/**
 	 * Method to log in a user in the System
-	 * @param userName - string representing the userName to login
-	 * @param password - string representing the user's password
-	 * @param ip - string representing the IP
-	 * @return string - string representing the logged userName
+	 * @param userName string representing the userName to login
+	 * @param password string representing the user's password
+	 * @param ip string representing the IP
+	 * @return string representing the logged userName
 	 * @throws UserException if the string represents a invalid IP or login and password do not match
 	 * @throws PositionException if the values ate not valid or could not find the GeoIP database
 	 * @throws MainSystemException 
@@ -309,8 +309,8 @@ public class MainSystem {
 	
 	/**
 	 * Method that returns if a string represents a valid or invalid IP
-	 * @param Ip - string representing the IP
-	 * @return boolean - true if it's a valid IP, false otherwise
+	 * @param Ip string representing the IP
+	 * @return true if it's a valid IP, false otherwise
 	 */
 	private boolean validIp(String Ip) {
 		String expression = "^((0|1[0-9]{0,2}|2[0-9]{0,1}|2[0-4][0-9]|25[0-5]|[3-9][0-9]{0,1})\\.){3}(0|1[0-9]{0,2}|2[0-9]{0,1}|2[0-4][0-9]|25[0-5]|[3-9][0-9]{0,1})$";
@@ -323,8 +323,8 @@ public class MainSystem {
 	
 	/**
 	 * Method to encrypt a given string
-	 * @param password - string to be encrypted
-	 * @return string - encrypted string
+	 * @param password string to be encrypted
+	 * @return encrypted string
 	 */
 	private static String encripta(String password) {
 		try {
@@ -340,9 +340,9 @@ public class MainSystem {
 	
 	/**
 	 * Method the update a given user's localization given the latitude and longitude values
-	 * @param user - user to have the localization updated
-	 * @param latitude - latitude value
-	 * @param longitude - longitude value
+	 * @param user user to have the localization updated
+	 * @param latitude latitude value
+	 * @param longitude longitude value
 	 * @throws PositionException if the values are invalid.
 	 */
 	private void refreshMyLocalization(User user, double latitude,
@@ -362,8 +362,8 @@ public class MainSystem {
 
 	/**
 	 * Method the update a given user's localization given the IP
-	 * @param user - user to have the localization updated
-	 * @param ip - string representing the IP
+	 * @param user user to have the localization updated
+	 * @param ip string representing the IP
 	 * @throws PositionException if the values ate not valid or could not find the GeoIP database
 	 */
 	private void refreshMyLocalization(User user, String ip)
@@ -383,8 +383,8 @@ public class MainSystem {
 
 	/**
 	 * Method to identify if the user is logged in the System
-	 * @param userName - string representing the userName to be checked
-	 * @return boolean - true if the user is logged, false otherwise
+	 * @param userName string representing the userName to be checked
+	 * @return boolean true if the user is logged, false otherwise
 	 */
 	public boolean isConected(String userName) {
 		return this.loggedUsers.containsKey(userName);
@@ -392,17 +392,15 @@ public class MainSystem {
 
 	/**
 	 * Method to create a new user in the system
-	 * @param userName - string representing the new userName
-	 * @param password - string representing the new user's password
-	 * @param email - string representing the new user's email
-	 * @param name - string representing the new user's name
-	 * @param phone - string representing the new user's phone number
-	 * @throws MainSystemException
-	 * @throws UserException
+	 * @param userName string representing the new userName
+	 * @param password string representing the new user's password
+	 * @param email string representing the new user's email
+	 * @param name string representing the new user's name
+	 * @param phone string representing the new user's phone number
+	 * @throws MainSystemException if obligatory data is nos passed or is invalid 
 	 */
 	public void createUser(String userName, String password, String email,
-			String name, String phone) throws MainSystemException,
-			UserException {
+			String name, String phone) throws MainSystemException {
 
 		if ((password == null) || (password.trim().equals("")))
 			throw new MainSystemException("Senha eh um dado obrigatorio.");
@@ -415,7 +413,7 @@ public class MainSystem {
 			throw new MainSystemException("E-mail invalido.");
 		
 		if ((userName == null) || (userName.trim().equals("")))
-			throw new UserException("Username eh um dado obrigatorio.");
+			throw new MainSystemException("Username eh um dado obrigatorio.");
 		
 		if ((name == null) || (name.trim().equals("")))
 			throw new MainSystemException("Nome eh um dado obrigatorio.");
@@ -430,13 +428,12 @@ public class MainSystem {
 		newUser.setPhone(phone);
 
 		this.createdUsers.add(newUser);
-
 	}
 
 	/**
 	 * Method that returns if a string represents a valid or invalid email
-	 * @param email - string representing the IP
-	 * @return boolean - true if it's a valid email, false otherwise
+	 * @param email string representing the IP
+	 * @return true if it's a valid email, false otherwise
 	 */
 	private boolean validMail(String email) {
 		String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
@@ -450,9 +447,9 @@ public class MainSystem {
 	/**
 	 * Method that gets a User Object found by the given name and occurrence.
 	 * The occurrence value determines which user to return in case of multiple users in which the names match the parameter name
-	 * @param name - string representing the searched user's name 
-	 * @param occurrence - number to determine the user to return
-	 * @return User - user object representing the user found.
+	 * @param name string representing the searched user's name 
+	 * @param occurrence number to determine the user to return
+	 * @return user object representing the user found.
 	 * @throws MainSystemException if the user does not exist
 	 */
 	public User getUserbyName(String name, int occurrence) throws MainSystemException {
@@ -470,8 +467,8 @@ public class MainSystem {
 
 	/**
 	 * Method that gets a User Object found by the given userName
-	 * @param userName - string representing the searched user's userName 
-	 * @return User - user object representing the user found.
+	 * @param userName string representing the searched user's userName 
+	 * @return user object representing the user found.
 	 * @throws MainSystemException if the user does not exist
 	 */
 	public User getUserByUserName(String userName) throws MainSystemException {
@@ -490,9 +487,9 @@ public class MainSystem {
 	/**
 	 * Method to obtain a created user given a name and occurrence
 	 * The occurrence value determines which user to return in case of multiple users in which the names match the parameter name
-	 * @param name - string representing the searched user's name 
-	 * @param occurance - number to determine the user to return
-	 * @return User - user object representing the user found.
+	 * @param name string representing the searched user's name 
+	 * @param occurance number to determine the user to return
+	 * @return user object representing the user found.
 	 */
 	private User getCreatedUserByName(String name, int occurance) {
 		int found = 0;
@@ -510,8 +507,8 @@ public class MainSystem {
 
 	/**
 	 * Method to obtain a created user given a userName
-	 * @param userName - string representing the searched user's userName 
-	 * @return User - user object representing the user found.
+	 * @param userName string representing the searched user's userName 
+	 * @return user object representing the user found.
 	 */
 	private User getCreatedUserByUserName(String userName) {
 		Iterator<User> iter = this.createdUsers.iterator();
@@ -525,8 +522,8 @@ public class MainSystem {
 
 	/**
 	 * Method to sent an invitation from a given user to a given email
-	 * @param from - string representing the user's userName
-	 * @param to - string representing the email who will receive the invitation
+	 * @param from string representing the user's userName
+	 * @param to string representing the email who will receive the invitation
 	 * @throws MainSystemException if the user is not logged
 	 * @throws MessageControllerException if the message was not possible to be sent
 	 */
@@ -552,7 +549,7 @@ public class MainSystem {
 
 	/**
 	 * Method to log out a user from the System
-	 * @param userName - string representing the user's userName
+	 * @param userName string representing the user's userName
 	 * @throws MainSystemException if the user does not exist or was not logged
 	 */
 	public void logOut(String userName) throws MainSystemException {
@@ -565,10 +562,10 @@ public class MainSystem {
 
 	/**
 	 * Method to send a email between two users
-	 * @param from - string representing the userName of the user who will send the email
-	 * @param to - string representing the userName of the user who will receive the email
-	 * @param subject - subject of the email
-	 * @param msg - email message
+	 * @param from string representing the userName of the user who will send the email
+	 * @param to string representing the userName of the user who will receive the email
+	 * @param subject subject of the email
+	 * @param msg email message
 	 * @throws MainSystemException if the user does not exist
 	 * @throws MessageControllerException if the message was not possible to be sent
 	 */
@@ -583,11 +580,11 @@ public class MainSystem {
 
 	/**
 	 * Method to send a SMS between two users
-	 * @param from - string representing the userName of the user who will send the SMS
-	 * @param to - string representing the userName of the user who will receive the SMS
-	 * @param msg - SMS message
+	 * @param from string representing the userName of the user who will send the SMS
+	 * @param to string representing the userName of the user who will receive the SMS
+	 * @param msg SMS message
 	 * @throws MainSystemException if the user does not exist or does not have a phone number registered in the System  
-	 * @throws MessageControllerException if the message was not possible to be sent
+	 * @throws MessageException if the message was not possible to be sent
 	 */
 	public void sendSMS(String from, String to, String msg)
 			throws MainSystemException, MessageException {
@@ -601,9 +598,9 @@ public class MainSystem {
 
 	/**
 	 * Method to initiate a Chat between two users
-	 * @param u1 - string representing a user in the Chat
-	 * @param u2 - string representing the other user in the Chat
-	 * @throws MainSystemException 
+	 * @param u1 string representing a user in the Chat
+	 * @param u2 string representing the other user in the Chat
+	 * @throws MainSystemException if any of the users do not exist
 	 */
 	public void initChat(String u1, String u2) throws MainSystemException {
 		try {
@@ -618,7 +615,7 @@ public class MainSystem {
 
 	/**
 	 * Method to end a chat 
-	 * @throws MainSystemException 
+	 * @throws MainSystemException if the chat was not initiated
 	 */
 	public void endChat() throws MainSystemException {
 		if(chat == null) throw new MainSystemException("Chat nao foi iniciado.");
@@ -627,10 +624,10 @@ public class MainSystem {
 
 	/**
 	 * Method to send a message in the current chat
-	 * @param receiver - string representing the user who received the message
-	 * @param msg - string representing the user who sent the message
+	 * @param receiver string representing the user who received the message
+	 * @param msg string representing the user who sent the message
 	 * @throws MainSystemException if the chat was not initiated
-	 * @throws MessageException 
+	 * @throws MessageException if the message was not possible to be sent
 	 */
 	public void sendChat(String receiver, String msg) throws MainSystemException, MessageException  {
 		if (chat == null)
@@ -640,7 +637,7 @@ public class MainSystem {
 
 	/**
 	 * Method to receive a message in the current chat
-	 * @param user - string representing the user
+	 * @param user string representing the user
 	 * @throws MainSystemException if the chat was not initiated
 	 */
 	public String receiveChat(String user) throws MainSystemException {
@@ -650,7 +647,7 @@ public class MainSystem {
 	}
 	
 	/**
-	 * resets the database
+	 * Method to reset the database
 	 */
 	public void resetBD() {
 		persistenceManager.resetBD();
@@ -662,16 +659,16 @@ public class MainSystem {
 	/**
 	 * Method to save a user in the System's database
 	 * If the userName already exists: overrides the file. Otherwise it creates a new file.
-	 * @param user - User Object that contains the data to be saved.
+	 * @param user User Object that contains the data to be saved.
 	 */
-	public void saveUser(User user) {
+	private void saveUser(User user) {
 		persistenceManager.saveUser(user, user.getUserName());
 	}
 
 	/**
 	 * Method to update a given user's name
-	 * @param userName - string representing the user's userName
-	 * @param newName - string representing the new name
+	 * @param userName string representing the user's userName
+	 * @param newName string representing the new name
 	 * @throws UserException if no name or an invalid one is passed
 	 * @throws MainSystemException if the user does not exist
 	 * 
@@ -703,8 +700,8 @@ public class MainSystem {
 
 	/**
 	 * Method to update a given user's email
-	 * @param userName - string representing the user's userName
-	 * @param newMail - string representing the new email
+	 * @param userName string representing the user's userName
+	 * @param newMail string representing the new email
 	 * @throws MainSystemException if the user does not exist
 	 * @throws UserException if no mail or an invalid one is passed
 	 */
@@ -730,8 +727,8 @@ public class MainSystem {
 	
 	/**
 	 * Method to update a given user's phone number
-	 * @param userName - string representing the user's userName
-	 * @param newPhoneNumber - string representing the new phone number
+	 * @param userName string representing the user's userName
+	 * @param newPhoneNumber string representing the new phone number
 	 * @throws MainSystemException if the user does not exist
 	 */
 	public void updatePhone(String userName, String newPhoneNumber)
@@ -756,8 +753,8 @@ public class MainSystem {
 	
 	/**
 	 * Method to update a given user's password
-	 * @param userName - string representing the user's userName
-	 * @param newPassword - string representing the new password
+	 * @param userName string representing the user's userName
+	 * @param newPassword string representing the new password
 	 * @throws MainSystemException if the user does not exist
 	 */
 	public void updatePass(String userName, String newPass)
@@ -776,7 +773,7 @@ public class MainSystem {
 	
 	/**
 	 * Method to remove all friends of a given user 
-	 * @param user - User object to be removed all of his friends
+	 * @param user User object to be removed all of his friends
 	 * @throws UserException if tried to remove a friend who is not user's friend
 	 * @throws MainSystemException if tried to remove a friend userName who does not exist
 	 */
@@ -819,7 +816,7 @@ public class MainSystem {
 
 	/**
 	 * Method to remove a user from the System
-	 * @param userName - string representing the user's userName
+	 * @param userName string representing the user's userName
 	 * @throws MainSystemException if the user does not exist
 	 */
 	public void removeUser(String userName) throws MainSystemException{
@@ -849,8 +846,8 @@ public class MainSystem {
 
 	/**
 	 * Method to return a formatted string containing the users friends userNames
-	 * @param userName - string representing the user's userName
-	 * @return string - formatted string with the friends userNames
+	 * @param userName string representing the user's userName
+	 * @return formatted string with the friends userNames
 	 * @throws MainSystemException if the user does not exist
 	 */
 	public String getFriendsList(String userName) throws MainSystemException {
@@ -860,9 +857,9 @@ public class MainSystem {
 
 	/**
 	 * Method to check if an invitation was sent between two users
-	 * @param userName - string representing the user who received the invitation
-	 * @param uName - string representing the user who sent the invitation
-	 * @return boolean - true if the invitation was sent, false otherwise
+	 * @param userName string representing the user who received the invitation
+	 * @param uName string representing the user who sent the invitation
+	 * @return true if the invitation was sent, false otherwise
 	 */
 	public boolean hasInvitation(String userName, String uName) {
 		try {

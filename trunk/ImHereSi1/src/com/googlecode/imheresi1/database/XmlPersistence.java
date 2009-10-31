@@ -122,9 +122,9 @@ public class XmlPersistence implements PersistenceManager {
 	/**
 	 * Method that return the user in the passed occurrence(alphabetical order) and has
 	 * the named passed as parameter on its name.
-	 * @param name
-	 * @param occurrence
-	 * @param users
+	 * @param name string representing the name
+	 * @param occurrence integer representing the occurrence number
+	 * @param users list of users
 	 * @return User that happens in the passed occurrence
 	 */
 	private User getUserInPosition(String name, int occurrence, List<User> users) {

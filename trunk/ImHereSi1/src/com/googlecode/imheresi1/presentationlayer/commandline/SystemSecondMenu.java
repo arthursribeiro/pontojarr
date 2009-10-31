@@ -8,6 +8,16 @@ import com.googlecode.imheresi1.logiclayer.UserException;
 import com.googlecode.imheresi1.logiclayer.localization.PositionException;
 import com.googlecode.imheresi1.logiclayer.message.MessageException;
 
+/**
+* Class that implements the Secondary menu in the ImHere System's Command Line Interface
+* Menu visible when a user is logged in the System
+* 
+* @author Arthur de Souza Ribeiro
+* @author Jose Laerte
+* @author Raquel Rolim
+* @author Raissa Sarmento
+*/
+
 public class SystemSecondMenu {
 
 	private Scanner input;
@@ -32,6 +42,11 @@ public class SystemSecondMenu {
 	private static final int LOGOUT = 8;
 	private static final String PROMPT_2 = "Opcao: ";
 
+	/**
+	 * Constructor
+	 * @param input Scanner object to obtain the data
+	 * @param userName string representing the logged user's userName 
+	 */
 	public SystemSecondMenu(Scanner input, String userName){
 		system = MainSystem.getInstance();
 		this.userName = userName;
@@ -40,6 +55,11 @@ public class SystemSecondMenu {
 		sair = false;
 	}
 
+	/**
+	 * Method to return a integer given a string that represents it
+	 * @param option string
+	 * @return integer obtained from the string, -1 if the string was not valid
+	 */
 	private int getOption(String option){
 		int chosenNumber;
 
@@ -52,7 +72,10 @@ public class SystemSecondMenu {
 		return chosenNumber;
 	}
 
-	private void atualizar() {
+	/**
+	 * Menu to update the user's data
+	 */
+	private void update() {
 		while(true) {
 			System.out.println();
 			System.out.println("<< Atualizar Dados >>");
@@ -112,6 +135,9 @@ public class SystemSecondMenu {
 		}
 	}
 
+	/**
+	 * Second Menu's main loop
+	 */
 	public void mainLoop(){
 		System.out.print(this.welcomeUser + PROMPT_1 + SEPARATOR + PROMPT_2);
 
@@ -120,27 +146,27 @@ public class SystemSecondMenu {
 		while (option != LOGOUT) {
 			switch (option) {
 			case ATUALIZAR:
-				atualizar();
+				update();
 				break;
 			case DELETAR:
-				deletar();
+				delete();
 				if(sair)
 					return;
 				break;
 			case EDITAR_COMPARTILHAMENTO:
-				editarCompartilhamento();
+				editSharing();
 				break;
 			case ADICIONAR_AMIGOS:
-				adicionarAmigos();
+				addFriends();
 				break;
 			case RECUPERAR_LOCALIZACAO:
-				recuperarLocalizacao();
+				obtainLocalization();
 				break;
 			case ENVIAR:
-				enviar();
+				send();
 				break;
 			case ACC_REC_COMPARTILHAMENTO:
-				accRecCompartilhamento();
+				accRecSharing();
 				break;
 			default:
 				System.out.println(SEPARATOR + "Opcao invalida!");
@@ -152,7 +178,10 @@ public class SystemSecondMenu {
 		}
 	}
 
-	private void accRecCompartilhamento() {
+	/**
+	 * Method to accept or refuse sharing between user's
+	 */
+	private void accRecSharing() {
 		String prompt = "";
 		try {
 			prompt = system.toStringMyInvitations(this.userName);
@@ -216,7 +245,10 @@ public class SystemSecondMenu {
 		}
 	}
 
-	private void enviar() {
+	/**
+	 * Method to send a message between users
+	 */
+	private void send() {
 		while(true){
 			System.out.println(SEPARATOR + "1. Email");
 			System.out.println("2. SMS");
@@ -269,7 +301,10 @@ public class SystemSecondMenu {
 
 	}
 
-	private void adicionarAmigos() {
+	/**
+	 * Method to add friends
+	 */
+	private void addFriends() {
 		System.out.print(SEPARATOR + "<<< Adicionar um amigo! >>>" + SEPARATOR
 				+ "Digite o email: ");
 		String email = this.input.nextLine().trim();
@@ -285,12 +320,15 @@ public class SystemSecondMenu {
 			// Do nothing
 		} catch (MessageException e) {
 			System.out.println(e.getMessage());
-			adicionarAmigos();
+			addFriends();
 		}
 
 	}
 
-	private void recuperarLocalizacao() {
+	/**
+	 * Method to obtain a friend's position
+	 */
+	private void obtainLocalization() {
 		String userNameParaLocalizar;
 		String menu = "";
 		try {
@@ -317,7 +355,7 @@ public class SystemSecondMenu {
 			
 		} catch (MainSystemException e) {
 			System.out.println(e.getMessage());
-			recuperarLocalizacao();
+			obtainLocalization();
 		} catch (UserException e) {
 			System.out.println(e.getMessage());
 		} catch (PositionException e) {
@@ -325,7 +363,10 @@ public class SystemSecondMenu {
 		}
 	}
 	
-	private void editarCompartilhamento() {
+	/**
+	 * Method to edit Sharing option
+	 */
+	private void editSharing() {
         String userNameParaEscolher;
         String menu = "";
         try{
@@ -355,11 +396,14 @@ public class SystemSecondMenu {
             this.system.setSharing(this.userName, userNameParaEscolher, opcao);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            editarCompartilhamento();
+            editSharing();
         }
     }
 
-	private void deletar() {
+	/**
+	 * Method to delete an account from the System
+	 */
+	private void delete() {
 		while(true){
 			System.out.print("Deseja realmente deletar a conta?(S/N) ");
 			String escolha = input.nextLine().trim();

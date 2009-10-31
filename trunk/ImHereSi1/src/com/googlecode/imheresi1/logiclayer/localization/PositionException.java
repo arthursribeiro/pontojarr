@@ -14,10 +14,10 @@ public class PositionException extends Exception {
 	/**
 	 * Constructor for the exception. 
 	 * String passed is the error message
-	 * @param motivo - reason for which the exception was thrown.
+	 * @param reason reason for which the exception was thrown.
 	 */
-	public PositionException(String motivo) {
-		super(motivo);
+	public PositionException(String reason) {
+		super(reason);
 	}
 
 }

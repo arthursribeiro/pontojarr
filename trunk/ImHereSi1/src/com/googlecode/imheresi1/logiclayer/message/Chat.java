@@ -8,9 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Class that implements Message and handles the Chat type
+ * Class that handles the Chat type
  * This class records the last message sent by each user.
- * Chat handles sinple user to user type conversations.
+ * Chat handles simple user to user type conversations.
  * 
  * @author Arthur de Souza Ribeiro
  * @author Jose Laerte
@@ -30,8 +30,8 @@ public class Chat {
 	 * Constructor
 	 * Creates a new Chat object. 
 	 * 
-	 * @param u1 - user that will participate in the chat.
-	 * @param u2 - the other user in the chat.
+	 * @param u1 user that will participate in the chat.
+	 * @param u2 the other user in the chat.
 	 */
 	public Chat(String u1, String u2) {
 		this.user1 = u1;
@@ -42,7 +42,7 @@ public class Chat {
 
 	/**
 	 * Returns the last message the user has sent.
-	 * @param username - user to get his last message sent 
+	 * @param username user to get his last message sent 
 	 * @return string representing the last message
 	 */
 	public String getLastMessage(String username){
@@ -50,6 +50,12 @@ public class Chat {
 		return this.lastMessages[1];
 	}
 
+	/**
+	 * Method to format a message and send it between users in the Chat
+	 * @param receiver user who received the chat
+	 * @param msg string representing the chat message
+	 * @throws MessageException if the message was not possible to be sent
+	 */
 	public void sendMsg(String receiver, String msg) throws MessageException{
 		StringBuilder sB = new StringBuilder();
 		if (receiver.equals(user1)){
@@ -66,7 +72,12 @@ public class Chat {
 		send(sB);
 	}
 	
-	public void send(StringBuilder sB) throws MessageException {
+	/**
+	 * Method to effectively send a chat message
+	 * @param sB representing the whole formatted message
+	 * @throws MessageException if the message was not possible to be sent
+	 */
+	private void send(StringBuilder sB) throws MessageException {
 		try {
 			FileInputStream file = new FileInputStream(this.path);
 			FileWriter bOut = new FileWriter(new File(this.path), true);
