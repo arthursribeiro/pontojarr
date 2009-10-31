@@ -32,11 +32,10 @@ public class User {
 	 * Constructor
 	 * Creates a new User object
 	 * 
-	 * @param userName - new User's userName
-	 * @param password - new User's password
-	 * @throws UserException if any of the data is invalid
+	 * @param userName new User's userName
+	 * @param password new User's password
 	 */
-	public User(String userName, String password) throws UserException {
+	public User(String userName, String password) {
 		this.password = password;
 		this.myPublicInfo = new PublicInfo();
 		this.myPublicInfo.setLogin(userName);
@@ -47,7 +46,7 @@ public class User {
 
 	/**
 	 * Method that returns the object public data
-	 * @return PublicInfo - User's object public info data
+	 * @return User's object public info data
 	 */
 	public PublicInfo getPublicInfo() {
 		return this.myPublicInfo;
@@ -55,8 +54,8 @@ public class User {
 
 	/**
 	 * Method that adds a new friend (PublicInfo data) to the User's friend list
-	 * @param friend - PublicInfo data of the new friend
-	 * @param mode - mode to represent if the data is visible or invisible
+	 * @param friend PublicInfo data of the new friend
+	 * @param mode mode to represent if the data is visible or invisible
 	 * @throws UserException if the userName is already a friend
 	 */
 	public void addFriend(PublicInfo friend, int mode) throws UserException {
@@ -71,7 +70,7 @@ public class User {
 
 	/**
 	 * Method that updates the password that the User object holds
-	 * @param newPass - string representing the new password
+	 * @param newPass string representing the new password
 	 */
 	public void updatePassword(String newPass) {
 		this.password = newPass;
@@ -79,9 +78,9 @@ public class User {
 
 	/**
 	 * Method that returns if the userName is a visible friend to the user or not  
-	 * @param friendUserName - string representing the userName of the friend 
-	 * @return boolean - true if the friend is visible, false otherwise
-	 * @throws UserException if the userName passed is not known no user.
+	 * @param friendUserName string representing the userName of the friend 
+	 * @return true if the friend is visible, false otherwise
+	 * @throws UserException if the userName passed is not known to user.
 	 */
 	public boolean isVisible(String friendUserName) throws UserException {		
 		Iterator <PublicInfo> iter = this.friends.iterator();
@@ -95,7 +94,7 @@ public class User {
 
 	/**
 	 * Method that returns a formatted string containing all of the user friends name.
-	 * @return String - string representing the names in a formatted way
+	 * @return string representing the names in a formatted way
 	 */
 	public String getFriendsNames() {
 		String[] names = new String[this.friends.size()];
@@ -111,7 +110,7 @@ public class User {
 	/**
 	 * Method that returns the list of PublicInfo's this User contains.
 	 * In other words: returns the list of friends.
-	 * @return Collection - Collection of PublicInfo's representing the User's friends
+	 * @return Collection of PublicInfo's representing the User's friends
 	 */
 	public List<PublicInfo> getFriendsPublicInfo() {
 		return this.friends;
@@ -119,7 +118,7 @@ public class User {
 
 	/**
 	 * Method that set's a new IP to the user.
-	 * @param ip - string representing the new IP
+	 * @param ip string representing the new IP
 	 */
 	public void setIp(String ip) {
 		this.ip = ip;
@@ -127,7 +126,7 @@ public class User {
 
 	/**
 	 * Method that sets the user's mail.
-	 * @param email - string representing the new email.
+	 * @param email string representing the new email.
 	 */
 	public void setMail(String email) {
 		this.myPublicInfo.setEmail(email);
@@ -135,7 +134,7 @@ public class User {
 	
 	/**
 	 * Method that sets the user's name
-	 * @param name - string representing the new name.
+	 * @param name string representing the new name.
 	 */
 	public void setName(String name) {
 		this.myPublicInfo.setName(name);
@@ -143,8 +142,7 @@ public class User {
 
 	/**
 	 * Method that sets the user's phone number
-	 * @param phone - string representing the new phone number
-	 * @throws UserException if no phone number or an invalid one is passed
+	 * @param phone string representing the new phone number
 	 */
 	public void setPhone(String phone) {
 		this.myPublicInfo.setTelephoneNumber(phone);
@@ -160,8 +158,8 @@ public class User {
 
 	/**
 	 * Method that sets the user's position
-	 * @param latitude - latitude for the new position object
-	 * @param longitude - longitude for the new position object
+	 * @param latitude latitude for the new position object
+	 * @param longitude longitude for the new position object
 	 * @throws PositionException if the values are invalid.
 	 */
 	public void setPositionManual(double latitude, double longitude)
@@ -171,7 +169,7 @@ public class User {
 
 	/**
 	 * Method that returns the user's Position object 
-	 * @return Position - The position of the user
+	 * @return The position of the user
 	 * @throws PositionException if the position was not possible to obtain.
 	 */
 	public Position getPosition() throws PositionException {
@@ -180,7 +178,7 @@ public class User {
 
 	/**
 	 * Method that returns the user's password
-	 * @return String - string representing the password
+	 * @return string representing the password
 	 */
 	public String getPassword() {
 		return this.password;
@@ -188,7 +186,7 @@ public class User {
 
 	/**
 	 * Method that returns the user's name
-	 * @return String - string representing the User's name
+	 * @return string representing the User's name
 	 */
 	public String getName() {
 		return this.myPublicInfo.getName();
@@ -196,7 +194,7 @@ public class User {
 
 	/**
 	 * Method that returns the user's email
-	 * @return String - string representing the User's email
+	 * @return string representing the User's email
 	 */
 	public String getMail() {
 		return this.myPublicInfo.getEMail();
@@ -204,7 +202,7 @@ public class User {
 
 	/**
 	 * Method that returns the user's telephone number
-	 * @return String - string representing the User's telephone number
+	 * @return string representing the User's telephone number
 	 */
 	public String getPhone() {
 		return this.myPublicInfo.getTelephoneNumber();
@@ -212,7 +210,7 @@ public class User {
 
 	/**
 	 * Method that returns the user's userName
-	 * @return String - string representing the User's userName
+	 * @return string representing the User's userName
 	 */
 	public String getUserName() {
 		return this.myPublicInfo.getLogin();
@@ -220,8 +218,8 @@ public class User {
 
 	/**
 	 * Method that determines if the giver userName is a friend of the User Object
-	 * @param username - string representing the userName to be determined
-	 * @return boolean - true if the userName is a friend, false otherwise
+	 * @param username string representing the userName to be determined
+	 * @return true if the userName is a friend, false otherwise
 	 */
 	private boolean isMyFriend(String username) {
 		Iterator<PublicInfo> iter = this.friends.iterator();
@@ -235,8 +233,8 @@ public class User {
 
 	/**
 	 * Method that sets the sharing option between two users
-	 * @param friend - string representing the friend userName
-	 * @param mode - new mode to be set. 
+	 * @param friend string representing the friend userName
+	 * @param mode new mode to be set. 
 	 * @throws UserException if the friend's userName is not a friend of the User's object
 	 */
 	public void setSharingOption(String friend, int mode) throws UserException {
@@ -253,7 +251,7 @@ public class User {
 
 	/**
 	 * Method that removes a friend from the friend's list
-	 * @param friend - string representing the friend userName
+	 * @param friend string representing the friend userName
 	 * @throws UserException if the userName is not a friend.
 	 */
 	public void removeFriend(String friend) throws UserException {
@@ -272,8 +270,8 @@ public class User {
 
 	/**
 	 * Method that returns the Position object of the given friend.
-	 * @param friend - string representing the friend userName
-	 * @return Position - Position object of the friend
+	 * @param friend string representing the friend userName
+	 * @return Position object of the friend
 	 * @throws PositionException if the position was not possible to obtain.
 	 * @throws UserException if the given userName is not a friend
 	 */
@@ -292,9 +290,9 @@ public class User {
 	}
 
 	/**
-	 * 
-	 * @param ip2
-	 * @return boolean
+	 * Method to check if the ip will change
+	 * @param ip2 newIp to check
+	 * @return true if it will change, false otherwise
 	 */
 	public boolean willChangeIp(String ip2) {
 		return !this.ip.equals(ip2);
@@ -302,8 +300,8 @@ public class User {
 
 	/**
 	 * Method that returns the PublicInfo object of the given friend.
-	 * @param userName - string representing the friend userName
-	 * @return PublicInfo - PublicInfo object of the friend
+	 * @param userName string representing the friend userName
+	 * @return PublicInfo object of the friend
 	 */
 	public PublicInfo getAFriendPublicInfo(String userName) {
 		Iterator<PublicInfo> iter = this.friends.iterator();
@@ -318,7 +316,7 @@ public class User {
 
 	/**
 	 * Method that formats the list of friends userName
-	 * @return string - formated string representing the list of userNames
+	 * @return formated string representing the list of userNames
 	 */
 	public String toStringFriends() {
 		String separator = System.getProperty("line.separator"); 

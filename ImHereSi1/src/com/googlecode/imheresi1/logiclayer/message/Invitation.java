@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * Class that implements an interface Message and handles the Invitation type
+ * Class that extends Message and handles the Invitation type
  * 
  * @author Arthur de Souza Ribeiro
  * @author Jose Laerte
@@ -23,10 +23,10 @@ public class Invitation extends Message {
 	 * Constructor
 	 * Creates a new Invitation object
 	 * 
-	 * @param fromName - string representing the name of the user who sent the invitation
-	 * @param fromMail - string representing the email of the user who sent the invitation 
-	 * @param to - string representing the user who receives the invitation
-	 * @param dir - string representing the directory in which the predetermined invitation text is stored 
+	 * @param fromName string representing the name of the user who sent the invitation
+	 * @param fromMail string representing the email of the user who sent the invitation 
+	 * @param to string representing the user who receives the invitation
+	 * @param dir string representing the directory in which the predetermined invitation text is stored 
 	 */
 	public Invitation(String fromName, String fromMail, String to, String dir) {
 		super(INVITATION_PATH,INVITATION_SENDER,to);
@@ -57,7 +57,7 @@ public class Invitation extends Message {
 
 	/**
 	 * Method to get the predetermined invitation text stored as "convite.txt" in the directory set by the creator of the invitation. 
-	 * @return string - representing the invitation.
+	 * @return string representing the invitation.
 	 */
 	private String getInviteText(){
 		StringBuffer buffer = new StringBuffer();
@@ -65,7 +65,7 @@ public class Invitation extends Message {
 			Scanner in = new Scanner(new File(this.directory+"/convite.txt"));
 			while(in.hasNext()){
 				buffer.append(in.nextLine());
-				buffer.append(System.getProperty("line.separator"));
+				buffer.append(SYSTEM_SEPARATOR);
 			}
 		} catch (FileNotFoundException e) {
 			//e.printStackTrace();

@@ -31,6 +31,12 @@ public abstract class Message {
 	
 	protected String path;
 	
+	/**
+	 * Constructor for the Message class
+	 * @param path string representing the path to save the message in
+	 * @param from string representing who sent the message
+	 * @param to string representing who received the message
+	 */
 	public Message(String path,String from, String to){
 		this.path = path;
 		this.sender = from;
@@ -38,12 +44,16 @@ public abstract class Message {
 	}
 	
 	/**
-	 * Method to return the whole message, already formated and ready to be sent  
-	 * @return string representing the formated message.
+	 * Method to return the message's body, already formated and ready to be sent  
+	 * @return string representing the formated body.
 	 */
-	public abstract String buildBody();
+	protected abstract String buildBody();
 	
-	public String build(){
+	/**
+	 * Method to build the whole message.
+	 * @return string representing the formatted message
+	 */
+	private String build(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(buildHeader());
 		sb.append(buildBody());
@@ -51,7 +61,11 @@ public abstract class Message {
 		return sb.toString();
 	}
 	
-	public String buildHeader(){
+	/**
+	 * Method to return the message's header, already formated and ready to be sent  
+	 * @return string representing the formated header.
+	 */
+	private String buildHeader(){
 		StringBuilder sB = new StringBuilder();
 		sB.append("From: " + this.sender);
 		sB.append(SYSTEM_SEPARATOR);
@@ -60,7 +74,11 @@ public abstract class Message {
 		return sB.toString();
 	}
 	
-	public String buildFooter(){
+	/**
+	 * Method to return the message's footer, already formated and ready to be sent  
+	 * @return string representing the formated footer.
+	 */
+	private String buildFooter(){
 		StringBuilder sB = new StringBuilder();
 		sB.append(SYSTEM_SEPARATOR);
 		sB.append(SEPARATOR);
@@ -70,7 +88,7 @@ public abstract class Message {
 	
 	/**
 	 * Method to effectively send a message, writes the content in the log. if no log exists, creates a new file
-	 * @throws MessageException
+	 * @throws MessageException if the message was not possible to be sent
 	 */
 	public void sendMessage() throws MessageException {
 		try {

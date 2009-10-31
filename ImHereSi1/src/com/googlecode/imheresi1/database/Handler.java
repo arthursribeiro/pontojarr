@@ -6,6 +6,16 @@ import java.util.Map;
 
 import com.googlecode.imheresi1.logiclayer.User;
 
+/**
+ * Class that implements the databade Handler 
+ * 
+ * @author Arthur de Souza Ribeiro
+ * @author Jose Laerte
+ * @author Raquel Rolim
+ * @author Raissa Sarmento
+ * 
+ */
+
 public class Handler {
 
 	private PersistenceManager bd; /*Object the holds the properly actions with files depending on type */
@@ -13,16 +23,16 @@ public class Handler {
 	
 	/**
 	 * Private constructor for database handler
-	 * @param bd - Manage the properly file actions, depending on type.
+	 * @param bd Manage the properly file actions, depending on type.
 	 */
 	private Handler(PersistenceManager bd) {
 	    this.bd = bd;
 	}
 	
 	/**
-	 * Singleton method that guarantees a single instace of database Handler 
+	 * Singleton method that guarantees a single instance of database Handler 
 	 * and create the files folder, if i doesn't exist.
-	 * @param bd
+	 * @param bd PersistenceManager object 
 	 * @return Handler instance.
 	 */
 	public static Handler getInstance(PersistenceManager bd) {
@@ -39,7 +49,7 @@ public class Handler {
 	
 	/**
 	 * Check if the path director exists, and creates it if it doesn't exist.
-	 * @param path
+	 * @param path string representing the path
 	 */
 	private static void checkDir(String path) {
 		File file = new File(path);
@@ -49,7 +59,7 @@ public class Handler {
 	
 	/**
 	 * Clear the directory files/path
-	 * @param path - path in the file directory
+	 * @param path path in the file directory
 	 */
 	private void clearDirectory(String path) {
 		File file = new File("files/" + path);

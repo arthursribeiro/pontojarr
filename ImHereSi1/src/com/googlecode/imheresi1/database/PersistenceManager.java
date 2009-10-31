@@ -20,8 +20,8 @@ public interface PersistenceManager {
 
 	/**
 	 * Method to check if a user by the given userName exists in the System
-	 * @param user - string representing the userName to check if the user exists
-	 * @return boolean - true if the System contains a user by that userName
+	 * @param user string representing the userName to check if the user exists
+	 * @return true if the System contains a user by that userName
 	 */
 	boolean hasUser(String user);
 
@@ -31,9 +31,9 @@ public interface PersistenceManager {
 	 * 
 	 * @see User
 	 *  
-	 * @param name - string representing the searched user's name 
-	 * @param occurrence - number to determine the user to return
-	 * @return User - user object representing the user found.
+	 * @param name string representing the searched user's name 
+	 * @param occurrence number to determine the user to return
+	 * @return user object representing the user found.
 	 */
 	User getUserByName(String name, int occurrence);
 
@@ -42,8 +42,8 @@ public interface PersistenceManager {
 	 *  
 	 * @see User
 	 *  
-	 * @param name - string representing the searched user's userName 
-	 * @return user - object representing the user found.
+	 * @param name string representing the searched user's userName 
+	 * @return object representing the user found.
 	 */
 	User getUserByUserName(String userName) ;
 
@@ -54,13 +54,13 @@ public interface PersistenceManager {
 	
 	/**
 	 * Method that returns an object representing all the invitations sent. 
-	 * @return Map - map that links a string (representing the userName of the user who sent the invitation) to a list of strings (representing all the usernames to which an invitation was sent).
+	 * @return map that links a string (representing the userName of the user who sent the invitation) to a list of strings (representing all the usernames to which an invitation was sent).
 	 */
 	Map<String, List<String>> getInvitations();
 	
 	/**
 	 * Method to save a new invitation in the invitation file
-	 * @param invitations - invitations map that represents the new invitations
+	 * @param invitations invitations map that represents the new invitations
 	 * the given map links a string (representing the userName of the user who sent the invitation) to a list of strings (representing all the usernames to which an invitation was sent).
 	 */
 	void saveInvitations(Map<String, List<String>> invitations);
@@ -70,14 +70,14 @@ public interface PersistenceManager {
 	 * If the userName already exists: overrides the file. Otherwise it creates a new file.
 	 * 
 	 * @see User
-	 * @param user - User Object that contains the data to be saved.
-	 * @param userName - User's userName. Which dictates the file name.
+	 * @param user User Object that contains the data to be saved.
+	 * @param userName User's userName. Which dictates the file name.
 	 */
 	void saveUser(User user, String userName);
 
 	/**
 	 * Deletes the file that refers to the specified user. 
-	 * @param userName - user to be removed form the System.
+	 * @param userName user to be removed form the System.
 	 * @throws PersistenceManagerException In case the user doesn't exists.
 	 */
 	void removeUser(String userName) throws PersistenceManagerException;

@@ -1,7 +1,7 @@
 package com.googlecode.imheresi1.logiclayer.message;
 
 /**
- * Class that implements Message and implements a SMS type
+ * Class that extends Message and implements a SMS type
  * 
  * @author Arthur de Souza Ribeiro
  * @author Jose Laerte
@@ -17,9 +17,9 @@ public class SMS extends Message {
 	 * Constructor
 	 * Creates a new SMS object
 	 * 
-	 * @param from - string representing the user who sent the SMS
-	 * @param to - string representing the user who will receive the SMS
-	 * @param msg - string representing the message itself.
+	 * @param from string representing the user who sent the SMS
+	 * @param to string representing the user who will receive the SMS
+	 * @param msg string representing the message itself.
 	 */
 	public SMS(String from, String to, String msg) {
 		super(SMS_PATH,from,to);

@@ -1,7 +1,7 @@
 package com.googlecode.imheresi1.logiclayer.message;
 
 /**
- * Class that implements Message and handles the Email type
+ * Class that extends Message and handles the Email type
  * 
  * @author Arthur de Souza Ribeiro
  * @author Jose Laerte
@@ -19,10 +19,10 @@ public class Email extends Message {
 	 * Constructor
 	 * Creates a new Email object.
 	 * 
-	 * @param from - string representing the user who sent the email
-	 * @param to - string representing the the user who will receive the email
-	 * @param subject - string representing the subject of the email
-	 * @param msg - string representing the email message itself.
+	 * @param from string representing the user who sent the email
+	 * @param to string representing the the user who will receive the email
+	 * @param subject string representing the subject of the email
+	 * @param msg string representing the email message itself.
 	 */
 	public Email(String from, String to, String subject, String msg) {
 		super(EMAIL_PATH,from,to);

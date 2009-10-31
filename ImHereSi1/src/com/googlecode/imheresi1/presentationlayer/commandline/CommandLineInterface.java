@@ -7,6 +7,16 @@ import com.googlecode.imheresi1.logiclayer.MainSystemException;
 import com.googlecode.imheresi1.logiclayer.UserException;
 import com.googlecode.imheresi1.logiclayer.localization.PositionException;
 
+/**
+ * Class that implements the Main menu in the ImHere System's Command Line Interface
+ *
+ * @author Arthur de Souza Ribeiro
+ * @author Jose Laerte
+ * @author Raquel Rolim
+ * @author Raissa Sarmento
+ *
+ */
+
 public class CommandLineInterface {
 	
 	private static Scanner input;
@@ -23,7 +33,11 @@ public class CommandLineInterface {
 	private static final int CREATE_USER = 2;
 	private static final int EXIT = 3;
 
-	
+	/**
+	 * Method to return a integer given a string that represents it
+	 * @param option string
+	 * @return integer obtained from the string, -1 if the string was not valid
+	 */
 	private static int getOption(String option){
 		int chosenNumber;
 
@@ -36,6 +50,11 @@ public class CommandLineInterface {
 		return chosenNumber;
 	}
 
+	/**
+	 * Method to create a User, asks the necessary data via the standard input 
+	 * @param entrada Scanner object to ask the data
+	 * @return string representing the new userName in the system
+	 */
 	private static String createUser(Scanner entrada) {
 		String userName, password, email, name, phone;
 	
@@ -66,6 +85,14 @@ public class CommandLineInterface {
 		return getLocationData(userName, entrada, password);
 	}
 
+	/**
+	 * Method to get via the standard input the necessary location data.
+	 * Asks for an IP, if not possible to obtain the location, asks for the latitude and longitude
+	 * @param userName userName to set the location
+	 * @param entrada Scanner object to obtain the necessary data
+	 * @param password user's password
+	 * @return string representing the userName
+	 */
 	private static String getLocationData(String userName, Scanner entrada, String password){
 		System.out.print(SEPARATOR + "Ip: ");
 		String ip = entrada.nextLine().trim();
@@ -97,6 +124,11 @@ public class CommandLineInterface {
 		return null;
 	}
 	
+	/**
+	 * Method to login a user in the System
+	 * @param entrada Scanner object to obtain the user's data
+	 * @return string representing the user's userName
+	 */
 	private static String logIn(Scanner entrada){
 		String userNameToLogIn, passwordToLogin;
 		System.out.println(SEPARATOR + "<<< Log In >>>");
@@ -108,6 +140,12 @@ public class CommandLineInterface {
 		return getLocationData(userNameToLogIn, entrada, passwordToLogin);
 	}
 	
+	/**
+	 * Method to obtain for the input a double value.
+	 * @param prompt string representing the prompt to be shown via the standar output 
+	 * @param entrada Scanner object to obtain the data
+	 * @return value that the user typed
+	 */
 	private static double getDoubleValue(String prompt, Scanner entrada){
 		while(true){
 			System.out.print(SEPARATOR + prompt);
@@ -120,6 +158,10 @@ public class CommandLineInterface {
 		}
 	}
 	
+	/**
+	 * Main loop
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		mySystem = MainSystem.getInstance();
 		input = new Scanner(System.in);
