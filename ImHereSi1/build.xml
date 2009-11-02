@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ImHereSi1" basedir=".">
+	<path id="classpath">
+	<fileset dir=".\lib">
+	  <include name="**/*.jar" /> 
+	  </fileset>
+	  <pathelement location="bin" /> 
+	  </path>
+	<target name="limpa">
+		<delete includeemptydirs="true">
+			<fileset includes="**.log" dir=".\files" />
+			<fileset includes="**.log" dir=".\files\chats" />
+			<fileset includes="**.log" dir=".\files\outputs" />
+			<fileset includes="**.xml" dir=".\files" />
+			<fileset includes="**.xml" dir=".\files\users" />
+			<fileset includes="**.xml" dir=".\files\chats" />
+			<fileset includes="**.*" dir=".\doc" />
+		</delete>
+			<echo> Projeto limpo </echo>
+	</target>
+	<target name="compila">
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin">
+			<classpath>
+				<pathelement path=".\lib\easyaccept.jar" />
+				<pathelement path=".\lib\GeoIP.jar" />
+				<pathelement path=".\lib\xpp3_min-1.1.4c.jar" />
+				<pathelement path=".\lib\xstream-1.3.jar" />
+			</classpath>
+		</javac>
+		<echo> Projeto compilado </echo>
+	</target>
+
+	<target name="testa">
+		<java classname="com.googlecode.imheresi1.acceptancetests.Teste" fork="true">
+			<classpath path="bin" />
+			<classpath>
+				<pathelement path=".\lib\easyaccept.jar" />
+				<pathelement path=".\lib\GeoIP.jar" />
+				<pathelement path=".\lib\xpp3_min-1.1.4c.jar" />
+				<pathelement path=".\lib\xstream-1.3.jar" />
+			</classpath>
+		</java>
+		<echo> Projeto testado! </echo>
+	</target>
+	<target name="doc">
+		<mkdir dir="doc" />
+		<javadoc defaultexcludes="yes" sourcepath="src" classpathref="classpath" access="public" destdir="doc" author="true" version="true" use="true" windowtitle="I'm Here">
+			<doctitle>
+				<![CDATA[ <h1>I'm Here</h1>
+  ]]> 
+  </doctitle>
+	</javadoc>
+		<echo> JavaDoc gerado </echo>
+</target>
+<target name="jar">
+	<jar destfile="ImHereSi1.jar" basedir="bin" duplicate="fail" index="true">
+		<zipfileset src="lib/GeoIP.jar" includes="**/*.class" />
+		<zipfileset src="lib/xpp3_min-1.1.4c.jar" includes="**/*.class" />
+		<zipfileset src="lib/xstream-1.3.jar" includes="**/*.class" />
+		<manifest>
+			<attribute name="Main-Class" value="com.googlecode.imheresi1.presentationlayer.commandline.CommandLineInterface" />
+		</manifest>
+	</jar>
+	<echo> .jar criado! </echo>
+</target>
+<target name="executa" depends="jar">
+	<java jar="ImHereSi1.jar" fork="true" />
+</target>
+</project>
