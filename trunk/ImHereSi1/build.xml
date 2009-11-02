@@ -15,7 +15,10 @@
 			<fileset includes="**.xml" dir=".\files\users" />
 			<fileset includes="**.xml" dir=".\files\chats" />
 			<fileset includes="**.*" dir=".\doc" />
+			<fileset includes="package-list" dir=".\doc" />
 		</delete>
+		<delete dir="doc\com" />
+		<delete dir="doc\resources" />
 			<echo> Projeto limpo </echo>
 	</target>
 	<target name="compila">
